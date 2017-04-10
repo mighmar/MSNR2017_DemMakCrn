@@ -7,6 +7,7 @@
 \usepackage[T2A]{fontenc} % enable Cyrillic fonts
 \usepackage[utf8]{inputenc} % make weird characters work
 \usepackage{graphicx}
+\usepackage{amsmath}
 
 \usepackage[english,serbian]{babel}
 %\usepackage[english,serbianc]{babel} %ukljuciti babel sa ovim opcijama, umesto gornjim, ukoliko se koristi cirilica
@@ -33,6 +34,103 @@ U ovom tekstu je ukratko prikazana osnovna forma seminarskog rada. Obratite paž
 
 \section{Uvod}
 \label{sec:uvod}
+U protekle dve decenije se dosta toga promenilo u pogledu preformansi računara. Današnji kućni računari su jači nego najmoćniji superračunari iz 70-ih. U međuvremenu, kroz paralelizovanje i inovacije u hijerarhiji memorije superračunari sada postižu 10 do 100 teraflopa(eng. floating point operations per second). \cite{allen2001optimizing} \\
+
+Glavni krivci za ovakvo poboljšanje u brzini računara su dva aspekta. Prvi, osnovna tehnologija prema kojoj se računari konstruišu je doživela izuzetan napredak koji počiva na predviđanjima Murovog zakona (eng. Moore's law) \cite{Schaller1997MooresLaw}. Drugi aspekt je paralelizam u nekoj svojoj formi \cite{allen2001optimizing}.  \\
+
+Ova poboljšanja u snazi nisu došla bez problema. Kako je arhitektura postajala sve više i više kompleksna da bi mogla pratiti eksponencijalnu brzinu Murovog zakona, postajalo je sve teže i teže programirati. Većina vrhunskih programera je postala svesna potrebe da eksplicitno upravlja memorijom. U naporu da se poboljšaju preformanse pojedinačnih procesa, programeri su učili kako da ručno transformišu njihov kod tako da se efikasnije izvrši planiranje instrukcija na višeprocesorskom sistemu. \cite{allen2001optimizing} \\
+
+U današnje vreme značajni deo koda u većini modernih kompajlera je posvećen optimizaciji generisanog koda. Često se dešava da ponašanje pri izvršavanju optimizovanog koda nesaglasno sa pre-optimizovanim ponašanjem koda, drugim rečima optimizacija je uticala kako na semantiku programa tako i na pragmatiku. Ovaj problem se često dešava zbog nedovoljne strogosti koja je bila primenjena na ispravnost dokaza optimitacije. Za programske jezike sa definisanom matematičkom semantikom postoji rastući skup alata koji obezbeđuju osnovnu za semantički korektnu transformaciju, jedan od tih alata je i apstraktna interpretacija. \cite{AbramskyHankin} \\
+
+
+\section{Apstraktna interpretacija}
+\label{sec:Apstraktna interpretacija}
+Kao što se vidi iz prethodnog poglavlja apstraktna interpretacija je tehnika za automatsku statičku analizu. Sastoji se od zamene preciznih elemenata programa sa manje detaljnim apstrakcijama. Apstrakcija dovodi do gubitka sigurnih informacija, što dovodi do nemogućnosti dovođenja zaključaka za sve programe. Apstraktna interpretacija omogućava da otkrijemo runtime greške, kao što su delenje sa 0, prekoračenje, itd, a takođe otkriva korišćenje zajedničkih promenjljivih i mrtvi petlji. \cite{AbramskyHankin}// 
+Glavna prednost alata koji koriste apstraktnu interpretaciju je da se test obavlja bez iakve pripreme, baziran na kodu projekta. Ako se uporedi sa troškovima jediničnog testiranja, to predstavlja značajan argument. \cite{AbramskyHankin} //
+
+
+\subsection{Problem koji se rešava}
+\label{subsec:problem1}
+Da bi se lakše shvatio problem prvo će mo pokazati dva ne programerska primera apstraktne interpretacije koja će služiti za uspostavljanje principa pristupa. //
+
+Pretpostavimo da želimo da putujemo negde. Jedna od odluka koju moramo napraviti je da li želimo da hodamo, vozimo se ili letimo. Umesto da ovu odluku sprovodimo metodom pokušaja i greške, mi će mo koristiti osobinu putovanja, udaljenost (koju možemo izmeriti na mapi) da odlučimo koji je najbolji način transporta. Mapa je apstraktna reprezentacija putovanja i merenjem rastojanja mi apstrahujemo sam proces putovanja. //
+
+Drugi primer, malo više formalan, se gradi krisćenjem pravila zanak. Određujemo znak rezultata množenja. Ako se pitamo koji je znak
+
+336 * (-398)  
+
+mi odmah znamo da je rezultat negativan. Bez da izvodimo množenje pa određujemo znak mi na osnovu pravila znaka znamo da će množenje pozitivnog i negativnog broja uvek proizvesti za rezultat negativan broj. Ovaj drugi primer je malo bliži apstraktnoj interpretaciji kod programiranja tako da će mo malo dublje zaći u njega. //
+
+Da bi smo razumeli apstraktnu interpolaciju moramo da prebacimo zadatak u sledeću formu:
+
+\begin{equation}
+  + \times -
+\end{equation}
+
+gde $\times$ predstavlja pravilo znaka pri mnozenju \\
+
+\begin{multline}
+  	0 \times + = 0 \times - = + \times 0 = - \times 0 = 0 \\
+  	+ \times + = - \times - = + \\
+  	+ \times - = - \times + = + \\
+\end{multline}
+
+i onda izvodimo ove jednostavije izraze. Do sada nismo razmatrali korektnost interpretacije ali treba da bude jasno da mozemo dobiti potpuno tacne odgovor u oba primera. Ova situacija postaje mnogo nejasnija ako umesto mnozenja stavimo sabiranje. Prvih nekoliko redova ne predstavljaju neki problem //
+
+\begin{multline}
+	0 \pm + = + \pm 0 = +0 \\ 
+	0 \pm - = - \pm 0 = -0 \\ 
+	+ \pm + = +  \\ 
+	- \pm - = -  \\ 
+\end{multline}
+
+
+Ali ostatak je problematican:
+
+\begin{multline}	
+	+ \pm - = ?? \\ 
+	- \pm + = ?? \\ 
+\end{multline}
+
+Ako bi stavili znak (0, +, -) a da ne znamo vrednosti u nekim slucajevima bi pogresili jer odgovor zavisi od vrednosti na koje se primenjuje. Kako mozemo da okarakterisemo pravi izbor za ??. Da bi mogli to da uradimo moramo da znamo koji znak u abstraktnom izracunavanju predstavlja:
+
+\begin{multline}	
+	0 = {0}				\\    
+	+ = {n|n > 0}		\\	
+	- = {n|n < 0}		\\
+\end{multline}
+
+Onda je apstraktna kalkulacija tacna ako je pravi odgovor clan seta koji apstraktni odgovor predstavlja. Ako je ovo slucaj mi kazemo da je apstraktna interpretacija sigurna. Ako koristimo ?? da predstavimo cele brojeve, dobijamo sigurnu verziju sabiranja dodavanjem pravila:
+
+\begin{multline}	
+	s \pm ?? = ?? \pm s = ?? \pm ?? = ??    gde s \in [0, -, +]
+\end{multline}
+
+
+\subsection{Koriscenje u racunarstvu}
+\label{subsec:problem1}
+Kako je apstraktna interpretacija korisna u računarstvu? Mnogi tradicionalni optimizatori koji su bazirani na upravljanju tokom (eng. control flow) i na analizi toka podatak (eng Data-flow analysis) se uklapaju u okvir apstraktne interpretacije. Neke posebne analize koje su znacajne u deklarativnim jezicima:
+
+Stroga analiza:
+Analiza koja omogucava otimizaciju lenjih  funkcionalnih programa identifikujuci parameter koji mogu biti prosledjeni po vrednosti tako da se izbegne potreba za pravljenjem klozura (eng. closure) I otvara se mogucnost paralelne evaluacije. 
+
+Analiza menjanja u mestu:
+Ova analiza nam omogucava da odredimo tacke u programu na kojima je sigurno da se unisit objekat jer ni jedna pokazivac ne pokazuje na njega. Rezultate u ovoj oblasti je doneo Hudak. Znacajan rezultat je, po prvi put, funkcionalna verzija kviksort algoritma moze da se pokrene u linearnom prostoru. \cite{Girard1987}
+
+Analiza relevantnih klauza:
+U mnogim prototipovima 5 generacije arhitekture programi mogu da naprave ne-lokalni pristup definicjama funkcija. Ovo povlaci da postoji komunikacija povezan sa izvrsavanjem programa. Koriscenje analize delova postaje moguce identifikovati delove definicje funkcije koji su relevantni za nas program i tak smanjiti troskove.  
+
+Analiza moda:
+Znacajno povecanje preformansi moze se postici u Prologu ako zna kako se logicke varijable koriste ue relaciji (kao ulazne, izlazne ili mesavina ovo dvoje).
+Kada su deklarativna zajednica postala svesna apstraktne interpretacije, nove aplikacije su otkrivene. Optimizacije bazirane na apstraktoj interpretaciji su verovatno tacne. Ako ovo prebacimo u gornje primere to bi bilo:
+
+
+
+
+
+
+
+------------------------------------------------
 
 Ко жели, може да пише рад ћирилицом. У том случају, неопходно је да су инсталирани одговарајући пакети: texlive-fonts-extra, texlive-latex-extra, texlive-lang-cyrillic, texlive-lang-other. \\
 
