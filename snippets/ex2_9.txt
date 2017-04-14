@@ -1,0 +1,4 @@
+ t1 := k + m          a = ?, b = ?, k = 2, m = ?, n = ?, t1 = ?
+ ret := t1 + n        a = ?, b = ?, k = 2, m = ?, n = ?, t1 = ?, ret = ?
+ RETURN ret
+ EXIT

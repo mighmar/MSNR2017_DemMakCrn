@@ -1,0 +1,11 @@
+ (instrukcija)        (stanje interpretatora posle instrukcije)
+ ENTRY                a = 0, b = 7
+ k := 1               a = 0, b = 7, k = 1
+ COND a == 0          (TRUE)
+ k := k + 1           a = 0, b = 7, k = 2
+ m := a               a = 0, b = 7, k = 2, m = 0
+ n := b               a = 0, b = 7, k = 2, m = 0, n = 7
+ t1 := k + m          a = 0, b = 7, k = 2, m = 0, n = 7, t1 = 2
+ ret := t1 + n        a = 0, b = 7, k = 2, m = 0, n = 7, t1 = 2, ret = 9
+ RETURN ret
+ EXIT

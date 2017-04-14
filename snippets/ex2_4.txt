@@ -1,0 +1,4 @@
+ (instrukcija)        (stanje interpretatora posle instrukcije)
+ ENTRY                a = ?, b = ?
+ k := 1               a = ?, b = ?, k = 1
+ COND a == 0      

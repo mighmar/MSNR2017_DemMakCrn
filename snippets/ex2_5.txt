@@ -1,0 +1,5 @@
+ (instrukcija)        (stanje interpretatora posle instrukcije)
+                      a = ?, b = ?, k = 1
+ k := k + 1           a = ?, b = ?, k = 2
+ m := a               a = ?, b = ?, k = 2, m = ?
+ n := b               a = ?, b = ?, k = 2, m = ?, n = ?    

@@ -1,0 +1,11 @@
+ (instrukcija)        (stanje interpretatora posle instrukcije)
+ ENTRY                a = NN, b = ?
+ k := 1               a = NN, b = ?, k = 1
+ COND a == 0          (FALSE)
+ k := 2               a = NN, b = ?, k = 2
+ m := 0               a = NN, b = ?, k = 2, m = 0
+ n := a + b           a = NN, b = ?, k = 2, m = 0, n = ?
+ t1 := k + m          a = NN, b = ?, k = 2, m = 0, n = ?, t1 = 2
+ ret := t1 + n        a = NN, b = ?, k = 2, m = 0, n = ?, t1 = 2, ret = ?
+ RETURN ret
+ EXIT
