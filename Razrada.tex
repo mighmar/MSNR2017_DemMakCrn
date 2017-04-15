@@ -63,7 +63,7 @@ Onda je apstraktna kalkulacija tačna ako je pravi odgovor član skupa koji apst
 
 \subsection{Korišćenje u računarstvu}
 \label{subsec:problem1}
-Kako je apstraktna interpretacija korisna u računarstvu? Mnogi tradicionalni optimizatori koji su zasnovani na toku upravljanja (eng. control flow) i na analizi toka podataka (eng Data-flow analysis) se uklapaju u okvir apstraktne interpretacije. Neke posebne analize koje su znacajne u deklarativnim jezicima su:
+Kako je apstraktna interpretacija korisna u računarstvu? Mnogi tradicionalni optimizatori koji su zasnovani na toku upravljanja (eng. control flow) i na analizi toka podataka (eng. Data-flow analysis) se uklapaju u okvir apstraktne interpretacije. Neke posebne analize koje su znacajne u deklarativnim jezicima su:
 
 \begin{itemize}
 \item Stroga analiza:
@@ -77,6 +77,23 @@ U mnogim prototipovima 5. generacije arhitekture programi mogu da naprave neloka
 
 \item Analiza moda:
 Znacajno povećanje performansi može se postići u Prologu ako se zna kako se logicke varijable koriste u relaciji (kao ulazne, izlazne ili oba).
-Kada je deklarativna zajednica postala svesna apstraktne interpretacije, nove aplikacije su otkrivene. Optimizacije zasnovane na apstraktnoj interpretaciji su verovatno tačne. Ako ovo prebacimo u gornje primere to bi bilo:
+Kada je deklarativna zajednica postala svesna apstraktne interpretacije, nove aplikacije su otkrivene. Optimizacije zasnovane na apstraktnoj interpretaciji su verovatno tačne. 
+
 \end{itemize}
 
+Ako ovo prebacimo u gornje primere to bi bilo:
+
+\begin{itemize}
+\item Stroga analiza:
+Ako stroga analiza utvrdi da je funkcija stroga u argumentima onda to ona definitivno i jeste, ali analiza neće uspeti da detektuje neke parametre koji mogu biti prosleđeni po vrednosti. 
+
+\item Analiza menjanja u mestu:
+Ako analiza menjanja u mestu ukaže da možemo destruktivno da ažuriramo podatke onda i možemo ali ćemo kopirati neke objekte koji su mogli biti uništeni. \cite{Girard1987}
+
+\item Analiza relevantnih klauza:
+Analiza relevantnih klauza će nas terati da komuniciramo sa supersetom koda koji je u stvari samo potreban za neke posebne aplikacije.  
+
+\item Analiza moda:
+Analiza moda nekad neće uspeti da detektuje logičke promenjljive koje se isključivo koriste kao ulazno-izlazne promenjljive. 
+
+\end{itemize}
