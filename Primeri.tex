@@ -1,6 +1,6 @@
 Objasnićemo apstraktnu interpretaciju na primeru \emph{propagacije konstanti}. 
 Cilj nam je da otkrijemo u svakoj tački funkcije da li bilo koja od promenljivih koja se koristi u toj tački ima konstantnu vrednost, tj. da li ima istu vrednost nezavisno od ulaznih parametara funkcije i nezavisno od toga koji deo koda je izvršen u toj funkciji. 
-Prevodioci koriste ovaj tip analize za optimizaciju propagacije konstanti, što znači menjanje konstantnih promenljivih kontantama. 
+Prevodioci koriste ovaj tip analize za optimizaciju propagacije konstanti, što znači menjanje konstantnih promenljivih konstantama. 
 Ovo je primer C++ koda koji ćemo analizirati, sa komentarima koji ukazuju na konstantne promenljive.
 \lstinputlisting[language=C++, caption=Primer koda]{snippets/ex1.cpp}
 
@@ -55,8 +55,8 @@ Preostali slučaj testira \texttt{a = NN, b = ?}:
 \verbatiminput{snippets/ex2_3.txt}
 Sada smo testirali za svaki mogući ulaz, kao i svaku granu koda funkcije. Ovo je dokaz da \texttt{k = 2} je uvek tačno
 pre nego dođemo do \texttt{t1 := k + m}.\\
-Procedura koju smo upravo ispratili daje određen uvid kako bismo bismo krenuli u proces apstraktne interpretacije, ali
-nismo generalizovali samu proceduru. Tačno smo zali koje apstraktne vrednosti da koristimo za test slučajeve, i to smo mogli
+Procedura koju smo upravo ispratili daje određen uvid kako bismo krenuli u proces apstraktne interpretacije, ali
+nismo generalizovali samu proceduru. Tačno smo znali koje apstraktne vrednosti da koristimo za test slučajeve, i to smo mogli
 samo zato što smo imali kao primer jednostavnu funkciju. Ova metoda neće biti primenjiva na komplikovane funckije, i nije
 automatizovana.\\
 Drugi problem je što smo posmatrali svaku granu funkcije posebno. Funckija sa \texttt{k} iskaza može imati i do

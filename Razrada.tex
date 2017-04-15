@@ -63,11 +63,11 @@ Onda je apstraktna kalkulacija tačna ako je pravi odgovor član skupa koji apst
 
 \subsection{Korišćenje u računarstvu}
 \label{subsec:problem1}
-Kako je apstraktna interpretacija korisna u računarstvu? Mnogi tradicionalni optimizatori koji su zasnovani na toku upravljanja (eng. control flow) i na analizi toka podataka (eng. Data-flow analysis) se uklapaju u okvir apstraktne interpretacije. Neke posebne analize koje su značajne u deklarativnim jezicima su:
+Kako je apstraktna interpretacija korisna u računarstvu? Mnogi tradicionalni optimizatori koji su zasnovani na toku upravljanja (eng. Control flow) i na analizi toka podataka (eng. Data-flow analysis) se uklapaju u okvir apstraktne interpretacije. Neke posebne analize koje su značajne u deklarativnim jezicima su:
 
 \begin{itemize}
 \item Stroga analiza (eng. Strictness analysis):
-Analiza koja omogućava optimizaciju lenjih  funkcionalnih programa identifikujući parametre koji mogu biti prosleđeni po vrednosti tako da se izbegne potreba za pravljenjem zatvorsenja (eng. closure) i otvara se mogućnost paralelne evaluacije. 
+Analiza koja omogućava optimizaciju lenjih  funkcionalnih programa identifikujući parametre koji mogu biti prosleđeni po vrednosti tako da se izbegne potreba za pravljenjem zatvorenja (eng. closure) i otvara se mogućnost paralelne evaluacije. 
 
 \item Analiza menjanja u mestu (eng. In-place update analysis):
 Ova analiza nam omogućava da odredimo tačke u programu na kojima je sigurno da se uništi objekat jer ni jedan pokazivač ne pokazuje na njega. Rezultate u ovoj oblasti je doneo Hudak. Značajan rezultat je, po prvi put, funkcionalna verzija kviksort (engl. quicksort) algoritma koja može da se pokrene u linearnom prostoru. \cite{Girard1987}
