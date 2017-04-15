@@ -1,5 +1,3 @@
-\subsection{Uvod}
-\label{subsec:uvod}
 Objasnićemo apstraktnu interpretaciju na primeru \emph{propagacije konstanti}. 
 Cilj nam je da otkrijemo u svakoj tački funkcije da li bilo koja od promenljivih koja se koristi u toj tački ima konstantnu vrednost, tj. da li ima istu vrednost nezavisno od ulaznih parametara funkcije i nezavisno od toga koji deo koda je izvršen u toj funkciji. 
 Prevodioci koriste ovaj tip analize za optimizaciju propagacije konstanti, što znači menjanje konstantnih promenljivih kontantama. 
@@ -37,7 +35,7 @@ Terminologija:
 Kako bismo objasnili apstraktnu interpretaciju, počećemo prvo sa primerom konkretne interpretacije.
 Kasnije ćemo se nadograditi na ovaj primer kako bismo objasnili apstraktnu interpretaciju. \\
 Mogli bismo početi tako što bismo zvali funkciju za različite ulaze, i potom gledali koje su sve promenljive konstantne
-kroz sve te pozive. Počnimo tako što ćemo pokrenuti program za ulaze \texttt{"a=0, b=7}:
+kroz sve te pozive. Počnimo tako što ćemo pokrenuti program za ulaze \texttt{a=0, b=7}:
 \verbatiminput{snippets/ex2_1.txt}
 Dakle, \texttt{k = 2} pre nego što se koristi u naredbi \texttt{t1 := k + m}. Možemo pokrenuti funkciju za ostale ulaze i dobili bismo isti rezultat.
 Međutim, ovakav način testiranja nam ne može potvrditi da je \texttt{k = 2} za sve moguće ulaze. (Doduše može, ali samo ako bismo proverili za svaki od $2^{64}$ ulaza.)
