@@ -8,6 +8,8 @@
 \usepackage[utf8]{inputenc} % make weird characters work
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
 \usepackage{listings}
 \usepackage{verbatim}
 
@@ -15,6 +17,7 @@
 	numberstyle=\tiny\color[rgb]{0.6, 0.6, 0.6},
 	numbers=left
 }
+
 
 \lstset{style=stil}
 
@@ -24,6 +27,22 @@
 \hypersetup{colorlinks,citecolor=green,filecolor=green,linkcolor=blue,urlcolor=blue}
 
 \newtheorem{primer}{Primer}[section]
+\newtheorem{definicija}{Definicija}
+\newtheorem{teorema}{Teorema}
+
+\usepackage{mathptmx}
+
+\usepackage{graphicx}
+\makeatletter
+\providecommand{\bigsqcap}{%
+  \mathop{%
+    \mathpalette\@updown\bigsqcup
+  }%
+}
+\newcommand*{\@updown}[2]{%
+  \rotatebox[origin=c]{180}{$\m@th#1#2$}%
+}
+\makeatother
 
 \begin{document}
 
@@ -56,13 +75,16 @@ U današnje vreme značajni deo koda u većini modernih kompajlera je posvećen 
 \input{./Razrada.tex}
 
 
-\section{Formalizacija}
-\label{sec:Formalizacija}
-\input{./Formalizacija.tex}
+
 
 \section{Primeri}
 \label{sec:Primeri}
 \input{./Primeri.tex}
+
+\newpage
+\section{Formalizacija} 
+\label{sec:Formalizacija}
+\input{./Formalizacija.tex}
 
 \section{Zaključak}
 \label{sec:zakljucak}
