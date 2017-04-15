@@ -1,6 +1,6 @@
 
 Kao što se vidi iz prethodnog poglavlja apstraktna interpretacija je tehnika za automatsku statičku analizu. Sastoji se od zamene preciznih elemenata programa sa manje detaljnim apstrakcijama. Apstrakcija dovodi do gubitka sigurnih informacija, što dovodi do nemogućnosti dovođenja zaključaka za sve programe. Apstraktna interpretacija omogućava da otkrijemo runtime greške, kao što su delenje sa 0, prekoračenje, itd, a takođe otkriva korišćenje zajedničkih promenjljivih i mrtvih petlji. \cite{AbramskyHankin}\\ 
-Glavna prednost alata koji koriste apstraktnu interpretaciju je da se test obavlja bez iakve pripreme, baziran na kodu projekta. Ako se uporedi sa troškovima jediničnog testiranja, to predstavlja značajan argument. \cite{AbramskyHankin} \\
+Glavna prednost alata koji koriste apstraktnu interpretaciju je da se test obavlja bez ikakve pripreme, baziran na kodu projekta. Ako se uporedi sa troškovima jediničnog testiranja, to predstavlja značajan argument. \cite{AbramskyHankin} \\
 
 
 \subsection{Problem koji se rešava}
@@ -9,7 +9,7 @@ Da bi se lakše shvatio problem prvo ćemo pokazati dva neprogramerska primera a
 
 Pretpostavimo da želimo da putujemo negde. Jedna od odluka koju moramo napraviti je da li želimo da hodamo, vozimo se ili letimo. Umesto da ovu odluku sprovodimo metodom pokušaja i greške, mi ćemo koristiti osobinu putovanja, udaljenost (koju možemo izmeriti na mapi) da odlučimo koji je najbolji način transporta. Mapa je apstraktna reprezentacija putovanja i merenjem rastojanja mi apstrahujemo sam proces putovanja. \\
 
-Drugi primer, malo više formalan, se gradi korišćenjem pravila zanak. Određujemo znak rezultata množenja. Ako se pitamo koji je znak
+Drugi primer, malo više formalan, se gradi korišćenjem pravila znaka. Određujemo znak rezultata množenja. Ako se pitamo koji je znak
 
 336 * (-398)  
 
@@ -29,7 +29,7 @@ gde $\times$ predstavlja pravilo znaka pri množenju, $a_{+}$ pozitivan i $a_{-}
   	a_{+} \times - = a_{-} \times a_{+} = a_{-} \\
 \end{multline}
 
-i onda izvodimo ove jednostavije izraze. Do sada nismo razmatrali korektnost interpretacije ali treba da bude jasno da mozemo dobiti potpuno tačne odgovore u oba primera. Ova situacija postaje mnogo nejasnija ako umesto množenja stavimo sabiranje. Prvih nekoliko redova ne pred\-stavljaju neki problem \\
+i onda izvodimo ove jednostavije izraze. Do sada nismo razmatrali korektnost interpretacije ali treba da bude jasno da možemo dobiti potpuno tačne odgovore u oba primera. Ova situacija postaje mnogo nejasnija ako umesto množenja stavimo sabiranje. Prvih nekoliko redova ne pred\-stavljaju neki problem \\
 
 \begin{multline} \\
 	0 \pm a_{+} = a_{+} \pm 0 = a_{+,0} \\ 
@@ -46,7 +46,7 @@ Ali ostatak je problematičan:
 	a_{-} \pm a_{+} = ?? \\ 
 \end{multline}
 
-Ako bi stavili znak (0, +, -) a da ne znamo vrednosti u nekim slu\-čajevima bi pogrešili jer odgovor zavisi od vrednosti na koje se primenjuje. Kako mozemo da okarakterišemo pravi izbor za ??. Da bi mogli to da uradimo moramo da znamo koji znak u apstraktnom izracunavanju predstavlja:
+Ako bi stavili znak (0, +, -) a da ne znamo vrednosti u nekim slu\-čajevima bi pogrešili jer odgovor zavisi od vrednosti na koje se primenjuje. Kako možemo da okarakterišemo pravi izbor za ??. Da bi mogli to da uradimo moramo da znamo koji znak u apstraktnom izračunavanju predstavlja:
 
 \begin{multline}	\\
 	a_{0} = \{0\}				\\    
@@ -63,25 +63,24 @@ Onda je apstraktna kalkulacija tačna ako je pravi odgovor član skupa koji apst
 
 \subsection{Korišćenje u računarstvu}
 \label{subsec:problem1}
-Kako je apstraktna interpretacija korisna u računarstvu? Mnogi tradicionalni optimizatori koji su zasnovani na toku upravljanja (eng. control flow) i na analizi toka podataka (eng. Data-flow analysis) se uklapaju u okvir apstraktne interpretacije. Neke posebne analize koje su znacajne u deklarativnim jezicima su:
+Kako je apstraktna interpretacija korisna u računarstvu? Mnogi tradicionalni optimizatori koji su zasnovani na toku upravljanja (eng. control flow) i na analizi toka podataka (eng. Data-flow analysis) se uklapaju u okvir apstraktne interpretacije. Neke posebne analize koje su značajne u deklarativnim jezicima su:
 
 \begin{itemize}
-\item Stroga analiza:
-Analiza koja omogucava optimizaciju lenjih  funkcionalnih programa identifikujući parameter koji mogu biti prosleđeni po vrednosti tako da se izbegne potreba za pravljenjem zatvorenja (eng. closure) i otvara se mogućnost paralelne evaluacije. 
+\item Stroga analiza (eng. Strictness analysis):
+Analiza koja omogućava optimizaciju lenjih  funkcionalnih programa identifikujući parametre koji mogu biti prosleđeni po vrednosti tako da se izbegne potreba za pravljenjem zatvorsenja (eng. closure) i otvara se mogućnost paralelne evaluacije. 
 
-\item Analiza menjanja u mestu:
-Ova analiza nam omogućava da odredimo tacke u programu na kojima je sigurno da se uništi objekat jer ni jedan pokazivač ne pokazuje na njega. Rezultate u ovoj oblasti je doneo Hudak. Značajan rezultat je, po prvi put, funkcionalna verzija kviksort algoritma koja može da se pokrene u linearnom prostoru. \cite{Girard1987}
+\item Analiza menjanja u mestu (eng. In-place update analysis):
+Ova analiza nam omogućava da odredimo tačke u programu na kojima je sigurno da se uništi objekat jer ni jedan pokazivač ne pokazuje na njega. Rezultate u ovoj oblasti je doneo Hudak. Značajan rezultat je, po prvi put, funkcionalna verzija kviksort (engl. quicksort) algoritma koja može da se pokrene u linearnom prostoru. \cite{Girard1987}
 
-\item Analiza relevantnih klauza:
-U mnogim prototipovima 5. generacije arhitekture programi mogu da naprave nelokalni pristup definicijama funkcija. Ovo povlači da postoji komunikacija povezana sa izvrsavanjem programa. Korišćenje analize delova postaje moguce identifikovati delove definicije funkcije koji su relevantni za naš program i tako smanjiti troškove.  
+\item Analiza relevantnih klauza (eng. Relevant clause analysis):
+U mnogim prototipovima 5. generacije arhitekture programi mogu da naprave nelokalni pristup definicijama funkcija. Ovo povlači da postoji komunikacija povezana sa izvršavanjem programa. Korišćenje analize delova postaje moguće identifikovati delove definicije funkcije koji su relevantni za naš program i tako smanjiti troškove.  
 
-\item Analiza moda:
-Znacajno povećanje performansi može se postići u Prologu ako se zna kako se logicke varijable koriste u relaciji (kao ulazne, izlazne ili oba).
-Kada je deklarativna zajednica postala svesna apstraktne interpretacije, nove aplikacije su otkrivene. Optimizacije zasnovane na apstraktnoj interpretaciji su verovatno tačne. 
+\item Analiza moda (eng. Mode analysis):
+Značajno povećanje performansi može se postići u Prologu ako se zna kako se logičke promenjljive koriste u relaciji (kao ulazne, izlazne ili oba).
+Kada je deklarativna zajednica postala svesna apstraktne interpretacije, nove aplikacije su otkrivene. 
 
 \end{itemize}
-
-Ako ovo prebacimo u gornje primere to bi bilo:
+Optimizacije zasnovane na apstraktnoj interpretaciji su verovatno tačne. Ako ovo prebacimo u gornje primere to bi bilo:
 
 \begin{itemize}
 \item Stroga analiza:
