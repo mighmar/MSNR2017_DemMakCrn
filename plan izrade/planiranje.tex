@@ -31,7 +31,10 @@ Podela posla &17. Mart &Podela poslova i utvrđivanje potrebnog broja sati za ra
 Prva verzija &23. Mart &Napisan kostur rada, završeno minimum 40\% celokupnog posla \\
 Druga verzija &30. Mart &Rad je napisan u celosti \\
 Lektorisanje &6. Mart &Lektura rada, popisane greške \\
-Završna verzija &11. Mart &Ispravljanje uočenih grešaka, završno čitanje   \\
+Treća verzija &15. Mart &Ispravljanje uočenih grešaka, završno čitanje \\
+Preliminarna verzija &2. Maj &Ispravljanje grešaka u skladu sa recenzijama, odgovori na recenzije     \\
+Finalna verzija &12. Maj &Predavanje finalne verzije     \\
+
 \hline
 \end{tabular}
 }
@@ -42,22 +45,26 @@ Fakultetske obaveze(projekti, testovi...), moguća odsutnost članova tima zbog 
 Svakodnevna komunikacija članova tima tokom celog projekta, stalno praćenje napretka, konstantan tempo rada radi smanjenja mogućnosti prekoračenja rokova, po potrebi kosultovanje sa predmetnim nastavnikom.
 \newline
 
-
-\begin{ganttchart}[x unit=1.5cm]{1}{6}
+\begin{ganttchart}[x unit=1.2cm]{1}{8}
   \gantttitle{Mart}{4} 
-  \gantttitle{April}{2} \\
-  \gantttitlelist{16, 17, 23, 30, 6, 11}{1} \\
+  \gantttitle{April}{2} 
+  \gantttitle{Maj}{2} \\
+  \gantttitlelist{16, 17, 23, 30, 6, 15, 2, 12}{1} \\
   \ganttbar{Istraživanje}{1}{1} \\
   \ganttbar{Podela posla}{2}{2} \ganttnewline
   \ganttbar{Prva verzija}{3}{4} \\  
   \ganttbar{Druga verzija}{4}{5} \\ 
   \ganttbar{Lektorisanje}{5}{5} \\
-  \ganttbar{Završna verzija}{6}{6} 
+  \ganttbar{Treća verzija}{6}{6} \\
+  \ganttbar{Preliminarna verzija}{7}{7} \\ 
+  \ganttbar{Finalna verzija}{8}{8} \\ 
   \ganttlink{elem0}{elem1}
   \ganttlink{elem1}{elem2} 
   \ganttlink{elem2}{elem3}
   \ganttlink{elem3}{elem4}
   \ganttlink{elem4}{elem5}
+  \ganttlink{elem5}{elem6}
+  \ganttlink{elem6}{elem7}
 \end{ganttchart}
 \center gant dijagram plana izrade
    
