@@ -1,35 +1,40 @@
 
-Kao što se vidi iz prethodnog poglavlja apstraktna interpretacija je tehnika za automatsku statičku analizu. Sastoji se od zamene preciznih elemenata programa sa manje detaljnim apstrakcijama. Apstrakcija dovodi do gubitka sigurnih informacija, što dovodi do nemogućnosti dovođenja zaključaka za sve programe. Apstraktna interpretacija omogućava da otkrijemo runtime greške, kao što su delenje sa 0, prekoračenje, itd, a takođe otkriva korišćenje zajedničkih promenjljivih i mrtvih petlji. \cite{AbramskyHankin}\\ 
-Glavna prednost alata koji koriste apstraktnu interpretaciju je da se test obavlja bez ikakve pripreme, baziran na kodu projekta. Ako se uporedi sa troškovima jediničnog testiranja, to predstavlja značajan argument. \cite{AbramskyHankin} \\
+Kao što se vidi iz prethodnog poglavlja apstraktna interpretacija je tehnika za automatsku statičku analizu. Sastoji se od zamene preciznih elemenata programa sa manje detaljnim apstrakcijama. Apstrakcija dovodi do gubitka sigurnih informacija, što dovodi do nemogućnosti dovođenja zaključaka za sve programe. Apstraktna interpretacija omogućava da otkrijemo greške nastale tokom izvršavanja programa, kao što su deljenje sa 0, prekoračenje, itd, a takođe otkriva korišćenje zajedničkih promenljivih i mrtvih petlji \cite{AbramskyHankin}. \\ 
+
+Glavna prednost alata koji koriste apstraktnu interpretaciju je da se test obavlja bez ikakve pripreme, baziran na kodu projekta. Ako se uporedi sa troškovima jediničnog testiranja, to predstavlja značajan argument \cite{AbramskyHankin}. \\
 
 
 \subsection{Problem koji se rešava}
 \label{subsec:problem1}
-Da bi se lakše shvatio problem prvo ćemo pokazati dva neprogramerska primera apstraktne interpretacije koja će služiti za uspostavljanje principa pristupa. \\
+Da bi se lakše shvatio problem prvo ćemo pokazati tri neprogramerska primera apstraktne interpretacije. Ovi primeri će služiti za uspostavljanje principa pristupa. \\
 
-Pretpostavimo da želimo da putujemo negde. Jedna od odluka koju moramo napraviti je da li želimo da hodamo, vozimo se ili letimo. Umesto da ovu odluku sprovodimo metodom pokušaja i greške, mi ćemo koristiti osobinu putovanja, udaljenost (koju možemo izmeriti na mapi) da odlučimo koji je najbolji način transporta. Mapa je apstraktna reprezentacija putovanja i merenjem rastojanja mi apstrahujemo sam proces putovanja. \\
+Pretpostavimo da želimo da putujemo negde. Jedna od odluka koju moramo napraviti je da li želimo da hodamo, vozimo se ili letimo. Umesto da ovu odluku sprovodimo metodom pokušaja i greške, mi ćemo koristiti osobinu putovanja, udaljenost (koju možemo izmeriti na mapi) da odlučimo koji je najbolji način transporta. Mapa je apstraktna reprezentacija putovanja i merenjem rastojanja mi apstrahujemo sam proces putovanja \cite{AbramskyHankin}. \\
 
-Drugi primer, malo više formalan, se gradi korišćenjem pravila znaka. Određujemo znak rezultata množenja. Ako se pitamo koji je znak
+Slično ovom, može nam biti zadato da odredimo za neki broj da li je paran ili neparan. Sve što trebamo učiniti u tom slučaju jest videti da li je najmanje značajna cifra broja parna ili neparna - zadatak koji
+zahteva manje računarskog napora nego deliti celi broj za dva (osim ako je jednocifren broj). \\
+
+
+Treći primer, formalniji, gradi se korišćenjem pravila znaka. Određujemo znak rezultata množenja. Ako se pitamo koji je znak
 
 336 * (-398)  
 
-mi odmah znamo da je rezultat negativan. Bez da izvodimo množenje pa određujemo znak mi na osnovu pravila znaka znamo da će množenje pozitivnog i negativnog broja uvek proizvesti za rezultat negativan broj. Ovaj drugi primer je malo bliži apstraktnoj interpretaciji kod programiranja tako da ćemo malo dublje zaći u njega. \\
+mi odmah znamo da je rezultat negativan. Bez izvođenja operacije množenja mi određujemo znak na osnovu pravila znaka. Znamo da će množenje pozitivnog i negativnog broja uvek proizvesti za rezultat negativan broj. Ovaj treći primer je malo bliži apstraktnoj interpretaciji kod programiranja tako da ćemo malo dublje zaći u njega \cite{AbramskyHankin}. \\
 
-Da bi smo razumeli apstraktnu interpolaciju moramo da prebacimo zadatak u sledeću formu:
+Da bismo razumeli apstraktnu interpretaciju moramo da prebacimo zadatak u sledeću formu:
 
 \begin{equation}
   a_{+} \times a_{-}
 \end{equation}
 
-gde $\times$ predstavlja pravilo znaka pri množenju, $a_{+}$ pozitivan i $a_{-}$ negativan broj \\
+gde $\times$ predstavlja pravilo znaka pri množenju, $a_{+}$ pozitivan, a $a_{-}$ negativan broj. Zatim u ovakvom zapisu izvodimo sledeće jednostavije izraze:  \\
 
 \begin{multline}
   	0 \times a_{+} = 0 \times a_{-} = a_{+} \times 0 = a_{-} \times 0 = 0 \\
   	a_{+} \times a_{+} = a_{-} \times a_{-} = a_{+} \\
-  	a_{+} \times - = a_{-} \times a_{+} = a_{-} \\
+  	a_{+} \times a_{-} = a_{-} \times a_{+} = a_{-} \\
 \end{multline}
 
-i onda izvodimo ove jednostavije izraze. Do sada nismo razmatrali korektnost interpretacije ali treba da bude jasno da možemo dobiti potpuno tačne odgovore u oba primera. Ova situacija postaje mnogo nejasnija ako umesto množenja stavimo sabiranje. Prvih nekoliko redova ne pred\-stavljaju neki problem \\
+Do sada nismo razmatrali korektnost interpretacije, ali treba da bude jasno da možemo dobiti potpuno tačne odgovore u oba primera. Ova situacija postaje mnogo nejasnija ako umesto množenja stavimo sabiranje. Prvih nekoliko redova ne pred\-stavljaju neki problem \\
 
 \begin{multline} \\
 	0 \pm a_{+} = a_{+} \pm 0 = a_{+,0} \\ 
@@ -46,7 +51,7 @@ Ali ostatak je problematičan:
 	a_{-} \pm a_{+} = ?? \\ 
 \end{multline}
 
-Ako bi stavili znak (0, +, -) a da ne znamo vrednosti u nekim slu\-čajevima bi pogrešili jer odgovor zavisi od vrednosti na koje se primenjuje. Kako možemo da okarakterišemo pravi izbor za ??. Da bi mogli to da uradimo moramo da znamo koji znak u apstraktnom izračunavanju predstavlja:
+Ako bi stavili znak (0, +, -), a da ne znamo vrednosti u nekim slu\-čajevima bi pogrešili jer odgovor zavisi od vrednosti na koje se primenjuje. Kako možemo da okarakterišemo pravi izbor za ?? ? Da bi mogli to da uradimo moramo da znamo koji znak u apstraktnom izračunavanju predstavlja:
 
 \begin{multline}	\\
 	a_{0} = \{0\}				\\    
@@ -59,7 +64,7 @@ Onda je apstraktna kalkulacija tačna ako je pravi odgovor član skupa koji apst
 \begin{multline}	
 	s \pm a = a \pm s = a \pm a = a \quad \text{gde je s} \in \{0, -, +\}
 \end{multline}
-
+\cite{AbramskyHankin}
 
 \subsection{Korišćenje u računarstvu}
 \label{subsec:problem1}
@@ -73,7 +78,7 @@ Analiza koja omogućava optimizaciju lenjih  funkcionalnih programa identifikuju
 Ova analiza nam omogućava da odredimo tačke u programu na kojima je sigurno da se uništi objekat jer ni jedan pokazivač ne pokazuje na njega. Rezultate u ovoj oblasti je doneo Hudak. Značajan rezultat je, po prvi put, funkcionalna verzija kviksort (engl. quicksort) algoritma koja može da se pokrene u linearnom prostoru. \cite{Girard1987}
 
 \item Analiza relevantnih klauza (eng. Relevant clause analysis):
-U mnogim prototipovima 5. generacije arhitekture programi mogu da naprave nelokalni pristup definicijama funkcija. Ovo povlači da postoji komunikacija povezana sa izvršavanjem programa. Korišćenje analize delova postaje moguće identifikovati delove definicije funkcije koji su relevantni za naš program i tako smanjiti troškove.  
+U mnogim prototipovima 5. generacije arhitekture programi mogu da naprave nelokalni pristup definicijama funkcija. Ovo povlači da postoji komunikacija povezana sa izvršavanjem programa. Korišćenjem analize delova postaje moguće identifikovati delove definicije funkcije koji su relevantni za naš program i tako smanjiti troškove.  
 
 \item Analiza moda (eng. Mode analysis):
 Značajno povećanje performansi može se postići u Prologu ako se zna kako se logičke promenjljive koriste u relaciji (kao ulazne, izlazne ili oba).
@@ -90,7 +95,7 @@ Ako stroga analiza utvrdi da je funkcija stroga u argumentima onda to ona defini
 Ako analiza menjanja u mestu ukaže da možemo destruktivno da ažuriramo podatke onda i možemo ali ćemo kopirati neke objekte koji su mogli biti uništeni. \cite{Girard1987}
 
 \item Analiza relevantnih klauza:
-Analiza relevantnih klauza će nas terati da komuniciramo sa supersetom koda koji je u stvari samo potreban za neke posebne aplikacije.  
+Analiza relevantnih klauza će nas terati da komuniciramo sa nadskupom koda koji je u stvari samo potreban za neke posebne aplikacije.  
 
 \item Analiza moda:
 Analiza moda nekad neće uspeti da detektuje logičke promenjljive koje se isključivo koriste kao ulazno-izlazne promenjljive. 
