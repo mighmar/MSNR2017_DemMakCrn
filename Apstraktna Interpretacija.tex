@@ -12,7 +12,7 @@
 \usepackage{amsthm}
 \usepackage{listings}
 \usepackage{verbatim}
-\usepackage{float}
+\usepackage{enumitem}
 
 \lstdefinestyle{stil} {
 	numberstyle=\tiny\color[rgb]{0.6, 0.6, 0.6},
@@ -61,9 +61,9 @@
 
 \section{Uvod}
 \label{sec:uvod}
-U protekle dve decenije se dosta toga promenilo u pogledu performansi računara. Današnji kućni računari su jači nego najmoćniji superračunari iz 70-ih. U međuvremenu, kroz paralelizovanje i inovacije u hijerarhiji memorije superračunari sada postižu 10 do 100 teraflopa(eng. floating point operations per second) \cite{allen2001optimizing}. \\
+U protekle dve decenije se dosta toga promenilo u pogledu performansi računara. Današnji kućni računari su jači nego najmoćniji superračunari iz 70-ih. U međuvremenu, kroz paralelizovanje i inovacije u hijerarhiji memorije superračunari sada postižu 10 do 100 teraflopa(engl. floating point operations per second) \cite{allen2001optimizing}. \\
 
-Glavne krivce za ovakav porast brzine računara pronalazimo kroz dva aspekta. Prvi, osnovna tehnologija prema kojoj se računari konstruišu je doživela izuzetan napredak koji počiva na predviđanjima Murovog zakona (eng. Moore's law) \cite{Schaller1997MooresLaw}. Drugi aspekt je paralelizam u nekoj svojoj formi \cite{allen2001optimizing}.  \\
+Glavne krivce za ovakav porast brzine računara pronalazimo kroz dva aspekta. Prvi, osnovna tehnologija prema kojoj se računari konstruišu je doživela izuzetan napredak koji počiva na predviđanjima Murovog zakona (engl. Moore's law) \cite{Schaller1997MooresLaw}. Drugi aspekt je paralelizam u nekoj svojoj formi \cite{allen2001optimizing}.  \\
 
 Ova poboljšanja u snazi nisu došla bez problema. Kako je arhitektura postajala kompleksnija nebi li mogla pratiti eksponencijalnu brzinu Murovog zakona, postajalo je sve teže i teže programirati. Većina vrhunskih programera je postala svesna potrebe da eksplicitno upravlja memorijom. U naporu da se poboljšaju performanse pojedinačnih procesa, programeri su učili kako da ručno transformišu njihov kod tako da se efikasnije izvrši planiranje instrukcija na višeprocesorskom sistemu \cite{allen2001optimizing}. \\
 
@@ -82,6 +82,7 @@ U današnje vreme značajni deo koda u većini modernih kompajlera je posvećen 
 \label{sec:Primeri}
 \input{./Primeri.tex}
 
+\newpage
 \section{Formalizacija} 
 \label{sec:Formalizacija}
 \input{./Formalizacija.tex}
