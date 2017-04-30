@@ -7,7 +7,7 @@ Ovo je primer C++ koda koji ćemo analizirati, sa komentarima koji ukazuju na ko
 \subsection{Grafovi kontrole toka}
 \label{subsec:cfgs}
 
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.5]{Treehydra-cfg.png}
 \end{center}
@@ -18,11 +18,11 @@ Ovo je primer C++ koda koji ćemo analizirati, sa komentarima koji ukazuju na ko
 Apstraktna interpretacija se obavlja nad dijagramom koji predstavlja funkciju koju ispitujemo, i zove se \emph{graf kontrole toka (eng. control flow graph, CFG}). Na slici \ref{fig:graf} je prikazan graf funkcije koju ćemo ispitivati. \\
 Neke napomene:
 \begin{itemize}
-\item Svi mogući prelazi su prikazani kao ivice, tj. veze između čvorova koji sadrže kod
-\item Naredbe imaju tačno jednu operaciju i najviše jednu dodelu. Privermene promenljive se dodaju po potrebi.
+\item Svi mogući prelazi su prikazani kao grane, tj. veze između čvorova koji sadrže kod
+\item Naredbe imaju tačno jednu operaciju i najviše jednu dodelu. Privremene promenljive se dodaju po potrebi.
 \end{itemize}
 
-Terminologija:
+Terminologije:
 \begin{itemize}
 \item Svaki čvor se zove \textbf{osnovni blok} \emph{(eng. basic block, \textbf{BB})}. Osnovni blok se definiše tako što ima samo jednu tačku ulaza, i jednu tačku izlaza, što će reći da nema grananja unutar osnovnih blokova.
 \item Naredbe ćemo zvati \emph{instrukcije}, iako one uopšteno mogu imati različite nazive u zavisnosti od toga koliko operanada primaju.
@@ -45,19 +45,19 @@ Međutim, ovakav način testiranja nam ne može potvrditi da je \texttt{k = 2} z
 \label{subsec:approachingabsint}
 Ako pogledamo prethodnu funkciju, možemo primetiti da postoje samo dva bitna slučaja: \texttt{a == 0}, \texttt{a != 0}, dok
 \texttt{b} nije bitno. 
-Pokrenimo dva testa: jedan sa ulazom \texttt{a = 0, b = ?}, a drugi sa ulazom \texttt{a = NN, b = ?}, gde \textbf{NN} odznačava ne-nula vrednost, dok \textbf{?} označava bilo koju vrednost. Počnimo sa \texttt{a = 0, b = ?}:
+Pokrenimo dva testa: jedan sa ulazom \texttt{a = 0, b = ?}, a drugi sa ulazom \texttt{a = NN, b = ?}, gde \textbf{NN} označava ne-nula vrednost, dok \textbf{?} označava bilo koju vrednost. Počnimo sa \texttt{a = 0, b = ?}:
 \verbatiminput{snippets/ex2_2.txt}
 Ovo izgleda poprilično isto kao i konkretan primer, samo što su sada neke vrednosti apstrahovane, \texttt{NN} i \texttt{?},
-koje predstavljaju skupove konkretnih vrednosti.\\
-Takođe moramo da znamo šta opeatori rade nad apstraktnim vrednostima. Na primer, u poslednjem koraku,
-\texttt{ret := t1 + n} postaje \texttt{ret := 2 + ?}. Kako bismo saznali šta ovo znači, posmatramo skupove konkretnih vrednosti: Ako \texttt{?} može biti bilo koja vrednost, onda i \texttt{2 + ?} takođe može uzeti bilo koju vrednost, tako da \texttt{2 + ? -> ?}.
+koje predstavljaju skupove konkretnih vrednosti.
+Takođe moramo da znamo šta operatori rade nad apstraktnim vrednostima. Na primer, u poslednjem koraku,
+\texttt{ret := t1 + n} postaje \texttt{ret := 2 + ?}. Kako bismo saznali šta ovo znači, posmatramo skupove konkretnih vrednosti: Ako \texttt{?} može biti bilo koja vrednost, onda i \texttt{2 + ?} takođe može uzeti bilo koju vrednost, tako da \texttt{2 + ? $\longrightarrow$ ?}.
 Preostali slučaj testira \texttt{a = NN, b = ?}:
 \verbatiminput{snippets/ex2_3.txt}
 Sada smo testirali za svaki mogući ulaz, kao i svaku granu koda funkcije. Ovo je dokaz da \texttt{k = 2} je uvek tačno
 pre nego dođemo do \texttt{t1 := k + m}.\\
 Procedura koju smo upravo ispratili daje određen uvid kako bismo krenuli u proces apstraktne interpretacije, ali
 nismo generalizovali samu proceduru. Tačno smo znali koje apstraktne vrednosti da koristimo za test slučajeve, i to smo mogli
-samo zato što smo imali kao primer jednostavnu funkciju. Ova metoda neće biti primenjiva na komplikovane funckije, i nije
+samo zato što smo imali kao primer jednostavnu funkciju. Ova metoda neće biti primenjiva na komplikovane funkcije, i nije
 automatizovana.\\
 Drugi problem je što smo posmatrali svaku granu funkcije posebno. Funckija sa \texttt{k} iskaza može imati i do
 \texttt{$2^k$} grana, dok funkcija sa petljama ih može imati i beskonačno, i ovo nam onemogućava da imamo kompletnu
