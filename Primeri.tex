@@ -1,7 +1,7 @@
 Kako bismo bolje približili pojam apstraktne interpretacije, koristićemo se
 optimizacijskom tehnikom koju prevodioci koriste zvanu \emph{propagacija konstanti}.
 Sam proces propagacije konstanti se svodi na menjanje promenljivih u izrazima
-konstantnim vrednostima, u slučaju kada njihova vrednost ne zavisi niti od
+konstantnim vrednostima, u slučaju kada njihove vrednosti ne zavise niti od
 ulaznih parametara funkcije, niti od dela koda koji se izvršavao u toj funkciji.
 Sledi primer koda koji će biti predmet analize:
 \lstinputlisting[language=C++, caption=Primer koda]{snippets/ex1.cpp}
@@ -9,7 +9,7 @@ Sledi primer koda koji će biti predmet analize:
 \subsection{Grafovi kontrole toka}
 \label{subsec:cfgs}
 
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.5]{Treehydra-cfg.png}
 \end{center}
