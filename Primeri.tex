@@ -1,7 +1,9 @@
-Objasnićemo apstraktnu interpretaciju na primeru \emph{propagacije konstanti}. 
-Cilj nam je da otkrijemo u svakoj tački funkcije da li bilo koja od promenljivih koja se koristi u toj tački ima konstantnu vrednost, tj. da li ima istu vrednost nezavisno od ulaznih parametara funkcije i nezavisno od toga koji deo koda je izvršen u toj funkciji. 
-Prevodioci koriste ovaj tip analize za optimizaciju propagacije konstanti, što znači menjanje konstantnih promenljivih konstantama. 
-Ovo je primer C++ koda koji ćemo analizirati, sa komentarima koji ukazuju na konstantne promenljive.
+Kako bismo bolje približili pojam apstraktne interpretacije, koristićemo se
+optimizacijskom tehnikom koju prevodioci koriste zvanu \emph{propagacija konstanti}.
+Sam proces propagacije konstanti se svodi na menjanje promenljivih u izrazima
+konstantnim vrednostima, u slučaju kada njihova vrednost ne zavisi niti od
+ulaznih parametara funkcije, niti od dela koda koji se izvršavao u toj funkciji.
+Sledi primer koda koji će biti predmet analize:
 \lstinputlisting[language=C++, caption=Primer koda]{snippets/ex1.cpp}
 
 \subsection{Grafovi kontrole toka}
@@ -15,72 +17,96 @@ Ovo je primer C++ koda koji ćemo analizirati, sa komentarima koji ukazuju na ko
 \label{fig:graf}
 \end{figure}
 
-Apstraktna interpretacija se obavlja nad dijagramom koji predstavlja funkciju koju ispitujemo, i zove se \emph{graf kontrole toka (eng. control flow graph, CFG}). Na slici \ref{fig:graf} je prikazan graf funkcije koju ćemo ispitivati. \\
+Svaki deo koda se može predstaviti \emph{grafom kontrole toka (eng. control flow graph, CFG)},
+i upravo takva reprezentacija će se koristiti za opis apstraktne interpretacije.
+Slika \ref{fig:graf} prikazuje funkciju predstavljenu na ovaj način, koju ćemo koristiti za
+opis ovog metoda statičke analize.\\
 Neke napomene:
 \begin{itemize}
-\item Svi mogući prelazi su prikazani kao grane, tj. veze između čvorova koji sadrže kod
-\item Naredbe imaju tačno jednu operaciju i najviše jednu dodelu. Privremene promenljive se dodaju po potrebi.
+\item Veze između čvorova grafa su predstavljene kao grane, pojavljuju se u slučaju
+kada imamo naredbe kontrole toka(petlje, uslovni/bezuslovni skokovi itd.).
+\item Naredbe imaju najviše jednu dodelu i tačno jednu operaciju. U slučaju naredbe
+sa više operacija, vršimo razdvajanje na naredbe sa po jednom operacijom, čije
+ćemo rezultate čuvati u pomoćnim promenljivama.
 \end{itemize}
 
 Terminologije:
 \begin{itemize}
-\item Svaki čvor se zove \textbf{osnovni blok} \emph{(eng. basic block, \textbf{BB})}. Osnovni blok se definiše tako što ima samo jednu tačku ulaza, i jednu tačku izlaza, što će reći da nema grananja unutar osnovnih blokova.
-\item Naredbe ćemo zvati \emph{instrukcije}, iako one uopšteno mogu imati različite nazive u zavisnosti od toga koliko operanada primaju.
-\item \textbf{Tačka u programu} je zamišljena tačka pre ili posle svake instrukcije. Funkcija ima dobro definisano stanje u svakoj tački, tako da će se naša analiza programa uvek referisati na ove tačke.
+\item Svaki čvor se zove \textbf{osnovni blok} \emph{(eng. basic block, \textbf{BB})}.
+Osnovni blok se definiše tako što ima samo jednu tačku ulaza, i jednu tačku izlaza,
+što će reći da nema grananja unutar osnovnih blokova.
+\item Naredbe ćemo zvati \emph{instrukcije}, iako one uopšteno mogu imati
+različite nazive u zavisnosti od toga koliko operanada primaju.
+\item \textbf{Tačka u programu} je zamišljena tačka pre ili posle svake instrukcije.
+Funkcija ima dobro definisano stanje u svakoj tački, tako da će se naša analiza
+programa uvek referisati na ove tačke.
 \end{itemize}
 
 
 \subsection{Konkretna interpretacija}
 \label{subsec:concreteimpr}
-Kako bismo objasnili apstraktnu interpretaciju, počećemo prvo sa primerom konkretne interpretacije.
-Kasnije ćemo se nadograditi na ovaj primer kako bismo objasnili apstraktnu interpretaciju. \\
-Mogli bismo početi tako što bismo zvali funkciju za različite ulaze, i potom gledali koje su sve promenljive konstantne
-kroz sve te pozive. Počnimo tako što ćemo pokrenuti program za ulaze \texttt{a=0, b=7}:
+Pre nego što prođemo kroz primer koji opisuje proces apstraktne interpretacije,
+napravićemo jedan prolaz kroz funkciju koju ispitujemo koristeći konkretne vrednosti
+kao ulaz. Pritom ćemo pratiti promenljive unutar funkcije, obraćajući pažnju na
+one koje su zadržale istu vrednost tokom izvršavanja. Uzmimo sledeće vrenosti za ulaz
+\texttt{a = 0, b = 7}:
 \verbatiminput{snippets/ex2_1.txt}
-Dakle, \texttt{k = 2} pre nego što se koristi u naredbi \texttt{t1 := k + m}. Možemo pokrenuti funkciju za ostale ulaze i dobili bismo isti rezultat.
-Međutim, ovakav način testiranja nam ne može potvrditi da je \texttt{k = 2} za sve moguće ulaze. (Doduše može, ali samo ako bismo proverili za svaki od $2^{64}$ ulaza.)
+Dakle, \texttt{k = 2} pre nego što se koristi u naredbi \texttt{t1 := k + m}.
+Možemo pokrenuti funkciju za ostale ulaze i dobili bismo isti rezultat.
+Međutim, ovakav način testiranja nam ne može potvrditi da je \texttt{k = 2} za
+sve moguće ulaze. (Doduše može, ali samo ako bismo proverili sve moguće vrednosti
+koje promenljiva može da uzme.)
 
 
 \subsection{Približavanje apstraktnoj interpretaciji}
 \label{subsec:approachingabsint}
-Ako pogledamo prethodnu funkciju, možemo primetiti da postoje samo dva bitna slučaja: \texttt{a == 0}, \texttt{a != 0}, dok
-\texttt{b} nije bitno. 
-Pokrenimo dva testa: jedan sa ulazom \texttt{a = 0, b = ?}, a drugi sa ulazom \texttt{a = NN, b = ?}, gde \textbf{NN} označava ne-nula vrednost, dok \textbf{?} označava bilo koju vrednost. Počnimo sa \texttt{a = 0, b = ?}:
+Obratimo pažnju da za \texttt{k}, u okviru funkcije imamo dve bitne provere:
+\texttt{a == 0} i \texttt{a != 0}, dok nam vrednost za \texttt{b} u ovom slučaju
+nije bitna. Sada ćemo ispitati vrednost promenljivih u okviru funkcije za dva ulaza:
+jedan sa ulazom \texttt{a = 0, b = ?}, a drugi sa ulazom \texttt{a = NN, b = ?},
+gde \texttt{NN} označava ne-nula vrednost, dok \texttt{?} označava bilo koju vrednost.
+Počnimo sa \texttt{a = 0, b = ?}:
 \verbatiminput{snippets/ex2_2.txt}
-Ovo izgleda poprilično isto kao i konkretan primer, samo što su sada neke vrednosti apstrahovane, \texttt{NN} i \texttt{?},
+Primetimo da nam se sada pojavljuju \texttt{NN} i \texttt{?}, apstraktne vrednosti
 koje predstavljaju skupove konkretnih vrednosti.
-Takođe moramo da znamo šta operatori rade nad apstraktnim vrednostima. Na primer, u poslednjem koraku,
-\texttt{ret := t1 + n} postaje \texttt{ret := 2 + ?}. Kako bismo saznali šta ovo znači, posmatramo skupove konkretnih vrednosti: Ako \texttt{?} može biti bilo koja vrednost, onda i \texttt{2 + ?} takođe može uzeti bilo koju vrednost, tako da \texttt{2 + ? $\longrightarrow$ ?}.
-Preostali slučaj testira \texttt{a = NN, b = ?}:
+Ostaje još da utvrdimo kako se ponašaju operatori nad apstraktnim vrednostima.
+Na primer, u poslednjem koraku, \texttt{ret := t1 + n} postaje \texttt{ret := 2 + ?}.
+Kako bismo saznali šta ovo znači, posmatramo skupove konkretnih vrednosti: Ako \texttt{?}
+može biti bilo koja vrednost, onda i \texttt{2 + ?} takođe može uzeti bilo koju vrednost,
+tako da \texttt{2 + ? $\longrightarrow$ ?}. Preostali slučaj testira \texttt{a = NN, b = ?}:
 \verbatiminput{snippets/ex2_3.txt}
-Sada smo testirali za svaki mogući ulaz, kao i svaku granu koda funkcije. Ovo je dokaz da \texttt{k = 2} je uvek tačno
-pre nego dođemo do \texttt{t1 := k + m}.\\
-Procedura koju smo upravo ispratili daje određen uvid kako bismo krenuli u proces apstraktne interpretacije, ali
-nismo generalizovali samu proceduru. Tačno smo znali koje apstraktne vrednosti da koristimo za test slučajeve, i to smo mogli
-samo zato što smo imali kao primer jednostavnu funkciju. Ova metoda neće biti primenjiva na komplikovane funkcije, i nije
-automatizovana.\\
+Posle ovog koraka se vidi da su pokriveni svi mogući ulazi, kao i svaki deo koda
+funkcije, stoga možemo zaključiti da je \texttt{k = 2} uvek tačno pre nego što
+dođemo do naredbe \texttt{t1 := k + m}. \\
+Procedura koju smo upravo ispratili daje određen uvid kako bismo krenuli u proces
+apstraktne interpretacije, ali nismo generalizovali samu proceduru. Tačno smo
+znali koje apstraktne vrednosti da koristimo za test slučajeve, i to smo mogli
+samo zato što smo imali kao primer jednostavnu funkciju. Ova metoda neće biti
+primenjiva na komplikovane funkcije, i nije automatizovana.\\
 Drugi problem je što smo posmatrali svaku granu funkcije posebno. Funckija sa \texttt{k} iskaza može imati i do
 \texttt{$2^k$} grana, dok funkcija sa petljama ih može imati i beskonačno, i ovo nam onemogućava da imamo kompletnu
 pokrivenost.
 
 \subsection{Apstraktna interpretacija kroz primer}
 \label{subsec:absintex}
-Jedan od problema sa gornjim pristupom apstraktnoj interpretaciji je bio što nismo znali kako da odaberemo skupove
-apstraktnih vrednosti koje ćemo koristiti kao ulaz za test primere. Pokušajmo da sprovedemo jedan test gde nećemo birati
-takve skupove, dakle pokušajmo sa sledećim ulazom: \texttt{a = ?, b = ?}:
+Pre nego što krenemo u sam proces apstraktne interpretacije, treba da odaberemo
+skupove apstraktnih vrednosti. Ponekad ne znamo kako da odaberemo skupove takvih
+vrednosti, tako da ćemo sada proći kroz funkciju bez odabira ikakvih vrednosti:
+Dakle, pokušajmo sa sledećim ulazom: \texttt{a = ?, b = ?}:
 \verbatiminput{snippets/ex2_4.txt}
-Šta sada? Nemamo informaciju o tome šta je \texttt{a}, tako da ne znamo kojom granom treba da idemo. Odabraćemo obe. 
+Pošto nemamo informaciju o tome šta je \texttt{a}, krenućemo put obe grane.
 Prvo za potvrdnu granu:
 \verbatiminput{snippets/ex2_5.txt}
 Potom za negativni slučaj:
 \verbatiminput{snippets/ex2_6.txt}
-U ovoj tački, dva izvršna toka se spajaju. Mogli bismo da nastavimo da ih testiramo ponaosob, ali znamo da će to dovesti
-do eksplozije u uopštenom slučaju, tako da ćemo izvršiti spajanje stanja. Potrebno nam je jedno stanje koje pokriva obe
-grane:
+U ovoj tački, dva izvršna toka se spajaju. Mogli bismo da nastavimo da ih testiramo
+ponaosob, ali znamo da će to dovesti do eksplozije u uopštenom slučaju, tako da ćemo
+izvršiti spajanje stanja. Potrebno nam je jedno stanje koje pokriva obe grane:
 \verbatiminput{snippets/ex2_7.txt}
-Ovo stanje možemo dobiti tako što ćemo spajati promenljivu po promenljivu. Na primer, \texttt{k} je 2 u jednom i u drugom
-stanju, tako da je \texttt{k = 2} u rezultujućem stanju. Za \texttt{m}, ono može biti bilo šta u prvom stanju, tako da iako
-je ono 0 u drugom stanju, može uzeti bilo koju vrednost u rezultujućem stanju. Kao rezultat dobijamo:  
+Ovo stanje možemo dobiti tako što ćemo spajati promenljivu po promenljivu. Na primer,
+\texttt{k} je 2 u jednom i u drugom stanju, tako da je \texttt{k = 2} u rezultujućem
+stanju. Za \texttt{m}, ono može biti bilo šta u prvom stanju, tako da iako je ono 0
+u drugom stanju, može uzeti bilo koju vrednost u rezultujućem stanju. Kao rezultat dobijamo:
 \verbatiminput{snippets/ex2_8.txt}
 Možemo nastaviti izvršavanje u jednom toku:
 \verbatiminput{snippets/ex2_9.txt}
