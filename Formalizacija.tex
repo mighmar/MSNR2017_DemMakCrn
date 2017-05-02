@@ -1,4 +1,4 @@
-Označimo, za početak, izvršno stanje programa u jednom momentu, pod čime se podrazumeva vrednost promenljivih kao i mesto u kodu do koga se došlo, odnosno na koje pokazuje programski brojač, sa $v \in V$ gde je $V$ skup svih takvih stanja. Tada možemo primetiti binarnu relaciju prelaska stanja $v_{0} \rightsquigarrow v_{1}$ koja predstavlja da stanje $v_{1}$ može uslediti za stanjem $v_{0}$. \footnote{Ovo poglavlje se primarno oslanja na \cite{salcianu}, gde se mogu naći dokazi tvrdnji koji su ovde izostavljeni radi sažetosti.} \\
+Označimo izvršno stanje programa u datom trenutku, pod čime se podrazumeva vrednost promenljivih kao i mesto u kodu do koga se došlo, odnosno na koje pokazuje programski brojač, sa $v \in V$ gde je $V$ skup svih takvih stanja. Tada možemo primetiti binarnu relaciju prelaska stanja $v_{0} \rightsquigarrow v_{1}$ koja predstavlja da stanje $v_{1}$ može uslediti za stanjem $v_{0}$. \footnote{Ovo poglavlje se primarno oslanja na \cite{salcianu}, gde se mogu naći dokazi tvrdnji koji su ovde izostavljeni radi sažetosti.} \\
 
 Bitno je napomenuti da se ova relacija ne može zameniti funkcijom koja bi slikala jedno stanje u iduće, jer prelazak može zavisiti od okolnosti koje nisu definisane unutar programa, poput učitavanja podataka ili redosleda izvršavanja instrukcija u slučajevima kada program ima više niti, tako da može postojati više različitih stanja u koje jedno stanje prelazi. Posebno su nam zanimljiva stanja $$... \rightsquigarrow v_{n} \rightsquigarrow v_{n}$$ koja odgovaraju zaustavljanjima programa. \\
  
@@ -33,7 +33,7 @@ Sada želimo dovesti u vezu konkretna stanja programa sa apstraktnim stanjima ko
 \item $\forall v,\, L^{\prime} \subseteq L, (\forall l \in L^{\prime}, 	(v\: \rho \: l)) \Rightarrow v\: \rho \: (\bigsqcap L^{\prime})$
 \end{enumerate}
 
-Ovakvu relaciju nazivamo \emph{relacijom ispravnosti}. Da bi dokazali njenu valjanost u konkretnom slučaju, dovoljno je dokazati je za početno stanje izvršavanja i pokazat da se valjanost očuvava pri svakom prelasku u iduće stanje. 
+Ovakvu relaciju nazivamo \emph{relacijom ispravnosti}. Da bi dokazali njenu valjanost u konkretnom slučaju, dovoljno je dokazati je za početno stanje izvršavanja i pokazati da se valjanost čuva pri svakom prelasku u iduće stanje. 
 
 
 \subsection{Fiksne tačke}
@@ -56,7 +56,7 @@ Neka su $(A, \geqslant)$ i $(B, \geqslant)$ parcijalno uređeni skupovi a $F : A
 Ako između $L$ i $M$ postoji galoaova veza $\langle L, \alpha, \gamma, B \rangle$ tada je $\rho^{\prime} \subseteq M \times V$, takva da $$m\: \rho^{\prime}\: v \iff \gamma (m)\: \rho \: v$$ takođe relacija ispravnosti.
 \end{teorema}
 
-Druga tehnika je korišćenje operatora proširenja $\nabla : L \times L \rightarrow L$ takvog da je $x, y \sqsubseteq x \nabla y$ za sve $x, y$ i pomoću koga se za bilo koji rastući niz $(y_{n})_{n}$ može napraviti niz $$(x^{\prime}_{n})_{n} \quad \text{gde je} \quad x^{\prime}_{0} = y_{0} \quad \text{i} \quad x^{\prime}_{n} = x^{\prime}_{n-1} \nabla y_{n} $$ takav da konvergira u konačnoj broju koraka. \\
+Druga tehnika je korišćenje operatora proširenja $\nabla : L \times L \rightarrow L$ takvog da je $x, y \sqsubseteq x \nabla y$ za sve $x, y$ i pomoću koga se za bilo koji rastući niz $(y_{n})_{n}$ može napraviti niz $$(x^{\prime}_{n})_{n} \quad \text{gde je} \quad x^{\prime}_{0} = y_{0} \quad \text{i} \quad x^{\prime}_{n} = x^{\prime}_{n-1} \nabla y_{n} $$ takav da konvergira u konačnom broju koraka. \\
 
 Najčešće za funkciju prelaska $f_{L}$ pravimo niz $(f^{n}_{\nabla})_{n}$ takav da:
 $$
@@ -69,3 +69,10 @@ f^{n-1}_{\nabla} \nabla f_{L}(f^{n-1}_{\nabla})  & \text{inače}
 $$
 
 Ovime efektivno ubrzavamo nizove koji rastu a zaustavljamo ih u suprotnom, time se sprečava zaglavljivanje prilikom analizi petlji i drugih cikličnih tokova upravljanja. Za limes ovog niza ispostavlja se da je veći od najmanje fiksne tačke, te da ga dobro aproksimira. 
+
+\subsection{Pro upotrebe operatora proširenja}
+\label{subsec:widening}
+
+Razmotrimo sada 
+
+\lstinputlisting[language=C, caption=Primer koda 2]{snippets/ex3.cpp}

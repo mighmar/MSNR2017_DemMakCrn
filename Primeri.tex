@@ -3,8 +3,7 @@ optimizacijskom tehnikom koju prevodioci koriste zvanu \emph{propagacija konstan
 Sam proces propagacije konstanti se svodi na menjanje promenljivih u izrazima
 konstantnim vrednostima, u slučaju kada njihove vrednosti ne zavise niti od
 ulaznih parametara funkcije, niti od dela koda koji se izvršavao u toj funkciji.
-Sledi primer koda koji će biti predmet analize:
-\lstinputlisting[language=C++, caption=Primer koda]{snippets/ex1.cpp}
+\lstinputlisting[language=C++, caption=Kod sa grananjem, label=ex1]{snippets/ex1.cpp}
 
 \subsection{Grafovi kontrole toka}
 \label{subsec:cfgs}
@@ -17,7 +16,7 @@ Sledi primer koda koji će biti predmet analize:
 \label{fig:graf}
 \end{figure}
 
-Svaki deo koda se može predstaviti \emph{grafom kontrole toka (eng. control flow graph, CFG)},
+Svaki deo koda \ref{ex1} se može predstaviti \emph{grafom kontrole toka (eng. control flow graph, CFG)},
 i upravo takva reprezentacija će se koristiti za opis apstraktne interpretacije.
 Slika \ref{fig:graf} prikazuje funkciju predstavljenu na ovaj način, koju ćemo koristiti za
 opis ovog metoda statičke analize.\\
@@ -50,8 +49,8 @@ napravićemo jedan prolaz kroz funkciju koju ispitujemo koristeći konkretne vre
 kao ulaz. Pritom ćemo pratiti promenljive unutar funkcije, obraćajući pažnju na
 one koje su zadržale istu vrednost tokom izvršavanja. Uzmimo sledeće vrenosti za ulaz
 \texttt{a = 0, b = 7}:
-\verbatiminput{snippets/ex2_1.txt}
-Dakle, \texttt{k = 2} pre nego što se koristi u naredbi \texttt{t1 := k + m}.
+\verbatiminput{snippets/ex2_1.txt} 
+Dakle, texttt{k = 2} pre nego što se koristi u naredbi \texttt{t1 := k + m}.
 Možemo pokrenuti funkciju za ostale ulaze i dobili bismo isti rezultat.
 Međutim, ovakav način testiranja nam ne može potvrditi da je \texttt{k = 2} za
 sve moguće ulaze. (Doduše može, ali samo ako bismo proverili sve moguće vrednosti
@@ -118,4 +117,29 @@ Gde dobijamo odgovor koji smo želeli, \texttt{k = 2}. Osnovne ideje su bile:
 \item Gde imamo spajanje, spajamo izlaz iz obe grane
 \end{itemize}
 \cite{MozWiki}
+
+\subsection{Primer upotrebe operatora proširenja}
+\label{subsec:widening}
+
+Razmotrimo sada primer \ref{ex3}. Jasno je da naša analiza ne može proći kroz petlju svih 10000 puta, u opštem slučaju mi ni ne možemo znati postoji li izlaz iz date petlje. Zato je potrebno upotrebiti gorepomenuti operator proširenja, u ovom slučaju takav da se desni kraj intervala proširi do beskonačnosti što nam daje fiksnu tačku operacije koja se izvršava unutar petlje. \\ 
+
+\lstinputlisting[language=C, caption=Kod sa petljom, label=ex3, showlines=true]{snippets/ex3.cpp}
+
+Na kraju, dobijena stanja ograničavamo uslovom petlje koji zahteva se $x$ nalazi unutar $(-\infty, 10000)$ na početku petlje a unutar $[10000, +\infty)$ na njenom izlazu. Na tabeli \ref{tab:tabela1} prikazane su vrednosti dobijene u toku apstraktne interpretacije. \footnote{Primer je preuzet iz \cite{boulanger}}
+
+
+\begin{table}[H]
+\begin{center}
+\caption{Apstraktne vrednosti promenljive x po linijama koda i koracima apstraktne interpretacije.}
+\begin{tabular}{|l|l|l|l|l|l|} \hline
+stanje& početak& prvi prolaz & drugi prolaz & proširenje & uslov\\ \hline
+$x_1$ & $(-\infty, +\infty)$ & $(-\infty, +\infty)$ & $(-\infty, +\infty)$ & $(-\infty, +\infty)$ & $(-\infty, +\infty)$ \\ 
+$x_2$ & $[\:]$ & $[1,1]$ & $[1,1]$ & $[1,1]$ & $[1,1]$ \\
+$x_3$ & $[\:]$ & $[1,1]$ & $[1,3]$ & $[1,+\infty)$ & $[1,9999]$ \\
+$x_4$ & $[\:]$ & $[3,3]$ & $[3,5]$ & $[3,+\infty)$ & $[3,10001]$ \\
+$x_5$ & $[\:]$ & $[\:]$ & $[\:]$ & $[\:]$ & $[10000,10001]$ \\ \hline
+\end{tabular}
+\label{tab:tabela1}
+\end{center}
+\end{table}
 

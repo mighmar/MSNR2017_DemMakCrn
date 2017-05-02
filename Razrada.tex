@@ -71,7 +71,7 @@ Iz ovoga sledi da je apstraktni račun tačan ukoliko je stvarna vrednost član 
 Zbog čega je apstraktna interpretacija korisna u računarstvu? Mnogi tradicionalni optimizatori koji su zasnovani na toku upravljanja (engl. Control flow) i na analizi toka podataka (engl. Data-flow analysis) se uklapaju u okvir apstraktne interpretacije. Neke posebne analize koje su značajne u deklarativnim jezicima su:
 
 \begin{itemize}
-\item \textit{Stroga analiza} (engl. Strictness analysis\cite{AbramskyHankin}):
+\item \textit{Analiza strogosti} (engl. Strictness analysis\cite{AbramskyHankin}):
 Analiza koja omogućava optimizaciju lenjih funkcionalnih programa identifikujući parametre koji mogu biti prosleđeni po vrednosti. Na ovaj način se izbegava potreba za pravljenjem zatvorenja (engl. closure) i otvara se mogućnost paralelne evaluacije. 
 
 \item \textit{Analiza menjanja u mestu} (engl. In-place update analysis) \cite{CannPhd}:
@@ -81,7 +81,7 @@ Ova analiza nam omogućava da odredimo tačke u programu na kojima je sigurno da
 %U mnogim prototipovima 5. generacije arhitekture\cite{japanFGCS} programi %mogu da naprave nelokalni pristup definicijama funkcija. Ovo povlači da %postoji komunikacija povezana sa izvršavanjem programa. Korišćenjem %analize delova postaje moguće identifikovati delove definicije funkcije %koji su relevantni za naš program i tako smanjiti troškove.  
 
 \item \textit{Analiza moda} (engl. Mode analysis) \cite{AbramskyHankin}:
-Značajno povećanje performansi može se postići u Prologu ako se zna kako se logičke promenjljive koriste u relaciji (kao ulazne, izlazne ili oba).
+Značajno povećanje performansi može se postići u Prologu ako se zna kako se logičke promenljive koriste u relaciji (kao ulazne, izlazne ili oba).
 Kada je deklarativna zajednica postala svesna apstraktne interpretacije, nove aplikacije su otkrivene. 
 
 \end{itemize}
@@ -98,12 +98,16 @@ Ako analiza menjanja u mestu ukaže da možemo destruktivno da ažuriramo podatk
 %Analiza relevantnih klauza će nas terati da komuniciramo sa nadskupom koda %koji je u stvari samo potreban za neke posebne aplikacije.  
 
 \item Analiza moda:
-Analiza moda nekad neće uspeti da detektuje logičke promenjljive koje se isključivo koriste kao ulazno-izlazne promenjljive. 
+Analiza moda nekad neće uspeti da detektuje logičke promenljive koje se isključivo koriste kao ulazno-izlazne promenljive. 
 
 \end{itemize}
 
 \subsection{Aktuelna primena}
-Apstraktna interpretacija je široko primenjena u domenu analize i verifikacije koda gde postoji veliki broj aplikacija zasnovanih na njoj koja se već uveliko koriste u industriji\cite{Wilhelm-Wachter}. Među poznatijim alatima tog tipa mogu se navesti Parasoft C/C++test, Frama-C... \\
+Apstraktna interpretacija je široko primenjena u domenu analize i verifikacije koda gde postoji veliki broj aplikacija zasnovanih na njoj koja se već uveliko koriste u industriji\cite{Wilhelm-Wachter}. Među poznatijim alatima tog tipa mogu se navesti Parasoft C/C++test, Frama-C i Polyspace \footnote{Parasoft: \url{https://www.parasoft.com/product/cpptest/}, Frama-C: \url{http://frama-c.com/}, Polyspace: \url{https://www.mathworks.com/products/polyspace.html?s_cid=wiki_polyspace_2}}. \\
 
-U oblasti kompajlera, naprotiv, implementacija čiste apstraktne interpretacije znatno je ređa, uprkos ranom prepoznavanju potencijala za optimizaciju koda\cite{cousot}. 	U bitnije kompajlere zasnovane na ovim ideja ubrajaju se Ciao i Clang.
+U oblasti kompajlera, naprotiv, implementacija čiste apstraktne interpretacije znatno je ređa, uprkos ranom prepoznavanju potencijala za optimizaciju koda\cite{cousot}. 	Posebno zanimljiv primer je CIAO\footnote{\url{http://ciao-lang.org/}}, multiparadigmatski kompajler za jezike programiranja ograničenja namenjenih konkurentnom izvršavanju na više procesora. Njegov pretprocesor izvršava analize nad više različitih apstraktnih domena pomoću generičkog interpretatora koji radi 	s vrha naniže. \cite{ciao-report}. \\
+
+Mnogi kompajleri poput GCC, Rosylyn, Clang i Stalin koriste analizu toka podataka ili neke njene aspekte za optimizaciju, ali treba imati na umu da iako se ova tehnika može posmatrati kao podvrsta apstraktne interpretacije, ona je znatno starija od nje i nije informisana teorijskim uvidima koje su otkrili bračni par Kuso i kasniji istraživači, te se oslanja na konkretne domene i ne koristi operatore proširenja.
+
+
 
