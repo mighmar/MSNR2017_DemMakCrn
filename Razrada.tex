@@ -34,7 +34,7 @@ gde $\times$ predstavlja pravilo znaka pri množenju, $a_{+}$ pozitivan, a $a_{-
   	a_{+} \times a_{-} = a_{-} \times a_{+} = a_{-} \\
 \end{multline}
 
-Do sada nismo razmatrali korektnost interpretacije, ali treba da bude jasno da možemo dobiti potpuno tačne odgovore u oba primera. Ova situacija postaje mnogo nejasnija ako umesto množenja stavimo sabiranje. Prvih nekoliko redova ne pred\-stavljaju neki problem \\
+Do sada nismo razmatrali korektnost interpretacije, ali treba da bude jasno da možemo dobiti potpuno tačne odgovore u oba primera. Ova situacija postaje mnogo nejasnija ako umesto množenja posmatramo sabiranje i oduzimanje. Prvih nekoliko redova ne pred\-stavljaju neki problem \\
 
 \begin{multline} \\
 	0 \pm a_{+} = a_{+} \pm 0 = a_{+,0} \\ 
@@ -80,15 +80,15 @@ Ova analiza nam omogućava da odredimo tačke u programu na kojima je sigurno da
 %\item \textit{Analiza relevantnih klauza} (eng. Relevant clause analysis):
 %U mnogim prototipovima 5. generacije arhitekture\cite{japanFGCS} programi %mogu da naprave nelokalni pristup definicijama funkcija. Ovo povlači da %postoji komunikacija povezana sa izvršavanjem programa. Korišćenjem %analize delova postaje moguće identifikovati delove definicije funkcije %koji su relevantni za naš program i tako smanjiti troškove.  
 
-\item \textit{Analiza moda} (engl. Mode analysis) \cite{AbramskyHankin}:
-Značajno povećanje performansi može se postići u Prologu ako se zna kako se logičke promenljive koriste u relaciji (kao ulazne, izlazne ili oba).
-Kada je deklarativna zajednica postala svesna apstraktne interpretacije, nove aplikacije su otkrivene. 
+%\item \textit{Analiza moda} (engl. Mode analysis) \cite{AbramskyHankin}:
+%Značajno povećanje performansi može se postići u Prologu ako se zna kako se logičke promenljive koriste u relaciji (kao ulazne, izlazne ili oba).
+%Kada je deklarativna zajednica postala svesna apstraktne interpretacije, nove aplikacije su otkrivene. 
 
 \end{itemize}
 Optimizacije zasnovane na apstraktnoj interpretaciji su verovatno tačne. Ako ovo prebacimo u gornje primere to bi bilo:
 
 \begin{itemize}
-\item Stroga analiza:
+\item Analiza strogosti:
 Ako stroga analiza utvrdi da je funkcija stroga u argumentima onda to ona definitivno i jeste, ali analiza neće uspeti da detektuje neke parametre koji mogu biti prosleđeni po vrednosti. 
 
 \item Analiza menjanja u mestu:
@@ -97,8 +97,8 @@ Ako analiza menjanja u mestu ukaže da možemo destruktivno da ažuriramo podatk
 %\item Analiza relevantnih klauza:
 %Analiza relevantnih klauza će nas terati da komuniciramo sa nadskupom koda %koji je u stvari samo potreban za neke posebne aplikacije.  
 
-\item Analiza moda:
-Analiza moda nekad neće uspeti da detektuje logičke promenljive koje se isključivo koriste kao ulazno-izlazne promenljive. 
+%\item Analiza moda:
+%Analiza moda nekad neće uspeti da detektuje logičke promenljive koje se isključivo koriste kao ulazno-izlazne promenljive. 
 
 \end{itemize}
 

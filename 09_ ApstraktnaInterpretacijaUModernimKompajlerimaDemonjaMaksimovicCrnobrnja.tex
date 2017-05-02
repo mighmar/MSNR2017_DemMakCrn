@@ -1,0 +1,95 @@
+% !TEX encoding = UTF-8 Unicode
+
+\documentclass[a4paper]{article}
+
+\usepackage{color}
+\usepackage{url}
+\usepackage[utf8]{inputenc} % make weird characters work
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{float}
+
+\lstdefinestyle{stil} {
+	numberstyle=\tiny\color[rgb]{0.6, 0.6, 0.6},
+	numbers=left
+}
+
+
+\lstset{style=stil}
+
+\usepackage[english,serbian]{babel}
+
+\usepackage[unicode]{hyperref}
+\hypersetup{colorlinks,citecolor=green,filecolor=green,linkcolor=blue,urlcolor=blue}
+
+\newtheorem{primer}{Primer}[section]
+\newtheorem{definicija}{Definicija}
+\newtheorem{teorema}{Teorema}
+
+\usepackage{mathptmx}
+
+\usepackage{graphicx}
+\makeatletter
+\providecommand{\bigsqcap}{%
+  \mathop{%
+    \mathpalette\@updown\bigsqcup
+  }%
+}
+\newcommand*{\@updown}[2]{%
+  \rotatebox[origin=c]{180}{$\m@th#1#2$}%
+}
+\makeatother
+
+\begin{document}
+
+\title{Apstraktna interpretacija\\ \small{Seminarski rad u okviru kursa\\Metodologija stručnog i naučnog rada\\ Matematički fakultet}}
+
+\author{Ozren Demonja, Stefan Maksimović, Marko Crnobrnja\\ \{mi12319, mi12078, mi12024\}@alas.matf.bg.ac.rs}
+\date{1.~april 2017.}
+\maketitle
+
+\abstract{U ovom tekstu predstavljena je metoda apstraktne interpretacije programskog koda, objašnjeni uslovi njenog nastajanja i navedene njene primene u savremenom računarstvu za optimizaciju i verifikaciju softvera. Izložena je matematička formalizacija koja ukazuje na valjanost upotrebe ove metode za pouzdanu verifikaciju softvera kao i celo poglavlje u kome je detaljno razmotren primer dva C++ koda.}
+
+\tableofcontents
+
+\newpage
+
+\section{Uvod}
+\label{sec:uvod}
+%U protekle dve decenije se dosta toga promenilo u pogledu performansi računara. Današnji kućni računari su po snazi jači nego najmoćniji superračunari iz 70-ih. U međuvremenu, kroz paralelizovanje i inovacije u hijerarhiji memorije superračunari sada postižu 10 do 100 teraflopa(engl. floating point operations per second) \cite{allen2001optimizing}. \\
+%
+%Glavne krivce za ovakav porast brzine računara pronalazimo kroz dva aspekta. Prvi, osnovna tehnologija prema kojoj se računari konstruišu je doživela izuzetan napredak koji počiva na predviđanjima Murovog zakona (engl. Moore's law) \cite{Schaller1997MooresLaw}. Drugi aspekt je paralelizam u nekoj svojoj formi \cite{allen2001optimizing}.  \\	
+
+%Ova poboljšanja u snazi nisu došla bez problema. Kako je arhitektura postajala kompleksnija ne bi li mogla pratiti eksponencijalnu brzinu Murovog zakona, postajalo je sve teže i teže programirati. Većina vrhunskih programera je postala svesna potrebe da eksplicitno upravlja memorijom. U naporu da se poboljšaju performanse pojedinačnih procesa, programeri su učili kako da ručno transformišu njihov kod tako da se efikasnije izvrši planiranje instrukcija na višeprocesorskom sistemu \cite{allen2001optimizing}. \\
+
+U protekle dve decenije se dosta toga promenilo u pogledu performansi računara, arhitektura je postala znatno kompleksnija ne bi li mogla pratiti eksponencijalnu brzinu Murovog zakona i trendove u višeprocesorskom računanju. Zbog toga je u  današnje vreme značajni deo koda u većini modernih kompajlera je posvećen optimizaciji generisanog koda. Često se dešava da je ponašanje pri izvršavanju optimizovanog koda nesaglasno sa pre-optimizovanim ponašanjem koda, drugim rečima optimizacija je uticala kako na semantiku programa tako i na pragmatiku. Ovaj problem se često dešava zbog nedovoljne strogosti koja je bila primenjena na ispravnost dokaza optimizacije. Za programske jezike sa definisanom matematičkom semantikom postoji rastući skup alata koji obezbeđuju osnovu za semantički korektnu transformaciju, jedan od tih alata je i apstraktna interpretacija \cite{AbramskyHankin}. \\
+
+
+
+\section{Apstraktna interpretacija}
+\label{sec:Apstraktna interpretacija}
+\input{./Razrada.tex}
+
+\section{Formalizacija} 
+\label{sec:Formalizacija}
+\input{./Formalizacija.tex}
+
+\section{Primeri}
+\label{sec:Primeri}
+\input{./Primeri.tex}
+
+\section{Zaključak}
+\label{sec:zakljucak}
+\input{./Zakljucak.tex} 
+
+
+\addcontentsline{toc}{section}{Literatura}
+\appendix
+\bibliography{Bibliografija} 
+\bibliographystyle{plain}
+
+\end{document}
