@@ -1,13 +1,26 @@
 \documentclass[xetex,mathserif,serif]{beamer}
 
-\usetheme{Dresden}
-\usecolortheme{rose}
+\usetheme{Darmstadt}
+\usecolortheme{beetle}
+
+\usepackage{graphicx}
+\makeatletter
+\providecommand{\bigsqcap}{%
+  \mathop{%
+    \mathpalette\@updown\bigsqcup
+  }%
+}
+\newcommand*{\@updown}[2]{%
+  \rotatebox[origin=c]{180}{$\m@th#1#2$}%
+}
+\makeatother
+
 
 \title % (optional, only for long titles)
 {Apstraktna interpretacija u modernim kompajlerima}
 \subtitle{Seminarski rad u okviru kursa Metodologija stručnog i naučnog rada}
 \author[Demonja, Maksimović, Crnobrnja] % (optional, for multiple authors)
-{O.~Demonja, S.~Maksimović \and M.~Crnobrnja}
+{O.~Demonja, S.~Maksimović i M.~Crnobrnja}
 \institute% (optional)
 {
   Matematički fakultet\\
@@ -20,13 +33,56 @@
 \begin{document}
   \frame{\titlepage}
   \begin{frame}
-    \frametitle{This is the first slide}
-    %Content goes here
+    \frametitle{Formalizacija}
+	    \framesubtitle{Skupovi konkretnih i apstraktnih stanja}
+		\begin{center}
+			\begin{itemize}
+				\item $v \in V$ skup konkretnih stanja
+				\item $v_{1} \rightsquigarrow v_{2}$ relacija prelaska
+				\item $... \rightsquigarrow v_{n} \rightsquigarrow v_{n}$ zaustavljanja programa
+				\item $l \in L$ prostor svojstava
+				\item $l_{1} \rightarrow l_{2}$ \emph{funkcija} prelaska
+				\item $\sqsubseteq \; \; \subset \; L \times L$ relacija poretka nad $L$
+				\begin{itemize}
+					\item $a \sqsubseteq a$ refleksivnost
+					\item $a \sqsubseteq b \wedge b \sqsubseteq a \implies a = b$ antisimetričnost
+					\item $a \sqsubseteq b \wedge b \sqsubseteq c \implies a \sqsubseteq c$ tranzitivnost
+				\end{itemize}
+				\item potpuna mreža
+				\begin{itemize}
+					\item $\forall l_0 \in L^{\prime} \; \; l_0 \sqsubseteq \bigsqcup_{l \in L^{\prime}} l$
+					\item $\forall l_0 (\forall l \in L^{\prime} \; l \sqsubseteq	l_0) \implies \bigsqcup_{l \in L^{\prime}} l \sqsubseteq l_0 $
+					\item analogno za $\bigsqcap_{l \in L^{\prime}} l$ ...
+				\end{itemize}
+			\end{itemize}
+		\end{center}
   \end{frame}
   \begin{frame}
-    \frametitle{This is the second slide}
-    \framesubtitle{A bit more information about this}
-    %More content goes here
+    \frametitle{Formalizacija}
+	    \framesubtitle{Skupovi konkretnih i apstraktnih stanja}
+		\begin{center}
+		    \begin{figure}
+				\includegraphics[scale=0.5]{Rho.png}
+				\end{figure}
+		\end{center}
+  \end{frame}
+  \begin{frame}
+    \frametitle{Formalizacija}
+    \begin{figure}
+		\begin{center}
+		\includegraphics[scale=0.5]{Rho_prime.png}
+		\end{center}
+	\end{figure}
+  \end{frame}
+  \begin{frame}
+    \frametitle{Formalizacija}
+    \framesubtitle{Fiksne tačke}
+	\begin{center}
+		\begin{itemize}
+			\item $x = f_{L}(x)$
+			\item Čine potpunu mrežu.
+		\end{itemize}
+		\end{center}
   \end{frame}
 % etc
 \end{document}
