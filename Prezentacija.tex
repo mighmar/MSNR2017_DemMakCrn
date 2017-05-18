@@ -3,18 +3,6 @@
 \usepackage[export]{adjustbox}
 \usepackage{listings}
 \usepackage{color}
-
-%\usetheme{Darmstadt}
-%\usecolortheme{beetle}
-\usetheme{Madrid}
-\useoutertheme{miniframes} % Alternatively: miniframes, infolines, split
-\useinnertheme{circles}
-
-\definecolor{UBCblue}{rgb}{0.29412, 0.2745, 0.53334} % UBC Blue (primary)
-
-\usecolortheme[named=UBCblue]{structure}
-%\usecolortheme[named=Mahogany]{structure} % Sample dvipsnames color
-
 \usepackage{fontspec}
 \usepackage{multicol}
 
@@ -44,10 +32,10 @@
 
 
 
-\title % (optional, only for long titles)
+\title [Apstraktna interpretacija]% (optional, only for long titles)
 {Apstraktna interpretacija u modernim kompajlerima}
 \subtitle{Seminarski rad u okviru kursa Metodologija stručnog i naučnog rada}
-\author[Demonja, Maksimović, Crnobrnja] % (optional, for multiple authors)
+\author[\quad Demonja, Maksimović, Crnobrnja \quad] % (optional, for multiple authors)
 {O.~Demonja, S.~Maksimović i M.~Crnobrnja}
 \institute% (optional)
 {
@@ -258,7 +246,7 @@
 		$$
 		\pause
 		\begin{itemize}
-			\item $lim_{n \rightarrow \infty }f^{n}_{\nabla} \quad$ --- \quad {\color{green} aproksimira najmanju fiksnu tačku}
+			\item $lim_{n \rightarrow \infty }f^{n}_{\nabla} \quad$ --- \quad {\color{green} aproksimira najmanju fiksnu ta\v cku}
 		\end{itemize}
 	\end{center}
   \end{frame}
@@ -267,16 +255,16 @@
     \framesubtitle{Uvod}
     \begin{center}
 		\begin{itemize}
-			\item Uglavnom intraproceduralna apstraktna interpretacija - vrši se za svaku funkciju posebno
+			\item Uglavnom intraproceduralna apstraktna interpretacija - vr\v si se za svaku funkciju posebno
 			\begin{itemize}
-				\item Traženje konstantnih varijabli
-				\item Dereferenciranje null pokazivača
+				\item Tra\v zenje konstantnih varijabli
+				\item Dereferenciranje null pokaziva\v ca
 				\item Inicijalizacija promenljivih koje se kasnije koriste
 				\item \emph{lock/unlock, fopen/fclose}
 			\end{itemize}
 			\item Primer na problemu \emph{propagacije konstanti}
 			\begin{itemize}
-				\item Prolaz kroz funkciju koristeći apstraktne vrednosti kao ulaz 
+				\item Prolaz kroz funkciju koriste\v ci apstraktne vrednosti kao ulaz 
 				\item Apstraktna vrenost predstavlja skup konkretnih vrednosti
 				\item Kada imamo grananje, krenimo put obe grane
 				\item Gde imamo spajanje, spajamo izlaz iz obe grane
@@ -303,27 +291,27 @@
     \framesubtitle{Karakteristike apstraktne interpretacije}
 	\begin{center}
 		\begin{itemize}
-			\item Tačnost i pouzdanost
+			\item Ta\v cnost i pouzdanost
 				\begin{itemize}
-					\item Statička analiza nije savršena, moramo praviti kompromis
-					\item Vršenje strožijih provera, prijavljivanje lažnih pozitiva
-					\item Blaže provere, šansa da nam promaknu neke greške
+					\item Stati\v cka analiza nije savr\v sena, moramo praviti kompromis
+					\item Vr\v senje stro\v zijih provera, prijavljivanje la\v znih pozitiva
+					\item Bla\v ze provere, \v sansa da nam promaknu neke gre\v ske
 				\end{itemize}
 			\item Cena
 				\begin{itemize}
-					\item Algoritmi u najgorem slučaju eksponencijalne složenosti
-					\item  {\color{green} Test se izvršava direktno nad kodom}
-					\item {\color{red} Dosta se sporije vrši od procesa prevođenja}
+					\item Algoritmi u najgorem slu\v caju eksponencijalne slo\v zenosti
+					\item  {\color{green} Test se izvr\v sava direktno nad kodom}
+					\item {\color{red} Dosta se sporije vi\v si od procesa prevo\dj{}enja}
 				\end{itemize}
 		\end{itemize}
 	\end{center}
   \end{frame}
   \begin{frame}
-    \frametitle{Zaključak}
+    \frametitle{Zaklju\v cak}
 	\begin{center}
 		\begin{itemize}
  			\item Veoma zanimljiva tema \pause
-			\item Primarno se koristi za statičku verifikaciju \pause
+			\item Primarno se koristi za stati\v cku verifikaciju \pause
 			\item Uglavnom se ne koristi se u kompajlerima \pause
 			\begin{itemize}
 				\item $\dots$ {\color{green} ali ima puno potencijala}
