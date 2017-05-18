@@ -11,3 +11,5 @@
 *.cb2
 *.bbl
 *.blg
+*.nav
+*.snm

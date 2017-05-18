@@ -1,6 +1,8 @@
 \documentclass[xetex,mathserif,serif]{beamer}
 
 \usepackage[export]{adjustbox}
+\usepackage{listings}
+\usepackage{color}
 
 %\usetheme{Darmstadt}
 %\usecolortheme{beetle}
@@ -38,6 +40,8 @@
   \rotatebox[origin=c]{180}{$\m@th#1#2$}%
 }
 \makeatother
+
+
 
 
 \title % (optional, only for long titles)
@@ -221,7 +225,7 @@
 			\item $f^{0}_{L}(\bot) = \bot, \quad f^{n+1}_{L}(\bot) = f_{L}(f^{n}_{L}(\bot))$ \pause
 			\item $\bigsqcup \{ \: f^{n}_{L}(\bot)\: \}_{n \in \mathbb{N}}$ je najmanja fiksna tačka \pause
 			\begin{itemize}
-				\item nepraktično za izračunati			\pause
+				\item {\color{red} nepraktično za izračunati }			\pause
 			\end{itemize}
 			\item uvodimo prostor $M$ i \emph{Galoaovu vezu}  $\langle L, \alpha, \gamma, M \rangle$
 		\end{itemize}
@@ -252,11 +256,13 @@
 				& \text{inače}
 			\end{cases}
 		$$
+		\pause
+		\begin{itemize}
+			\item $lim_{n \rightarrow \infty }f^{n}_{\nabla} \quad$ --- \quad {\color{green} aproksimira najmanju fiksnu ta\v cku}
+		\end{itemize}
 	\end{center}
   \end{frame}
   \begin{frame}
-    \frametitle{Formalizacija}
-
     \frametitle{Primeri}
     \framesubtitle{Uvod}
     \begin{center}
@@ -279,14 +285,18 @@
 	\end{center}
   \end{frame}
   \begin{frame}
-    \frametitle{Primeri}
+	\frametitle{Primeri}
     \framesubtitle{Graf kontrole toka, CFG}
-
-    \begin{figure}
-		\begin{center}
-		\includegraphics[scale=0.5]{Treehydra-cfg.png}
-		\end{center}
-	\end{figure}
+	\begin{center}
+   		\begin{multicols}{2}
+%   		\begin{lstlisting}[basicstyle=\tiny]
+			\lstinputlisting[language=C++, basicstyle=\footnotesize]{snippets/ex1.cpp}
+%		\end{lstlisting}
+    		\begin{figure}
+				\includegraphics[scale=0.4,right]{Treehydra-cfg.png}
+			\end{figure}
+		\end{multicols}
+	\end{center}
   \end{frame}
   \begin{frame}
     \frametitle{Primeri}
@@ -302,11 +312,30 @@
 			\item Cena
 				\begin{itemize}
 					\item Algoritmi u najgorem slu\v caju eksponencijalne slo\v zenosti
-					\item Dosta se sporije vi\v si od procesa prevo\dj{}enja
+					\item  {\color{green} Test se izvr\v sava direktno nad kodom}
+					\item {\color{red} Dosta se sporije vi\v si od procesa prevo\dj{}enja}
 				\end{itemize}
 		\end{itemize}
 	\end{center}
   \end{frame}
-  
+  \begin{frame}
+    \frametitle{Zaklju\v cak}
+	\begin{center}
+		\begin{itemize}
+ 			\item Veoma zanimljiva tema \pause
+			\item Primarno se koristi za stati\v cku verifikaciju \pause
+			\item Uglavnom se ne koristi se u kompajlerima \pause
+			\begin{itemize}
+				\item $\dots$ {\color{green} ali ima puno potencijala}
+			\end{itemize}
+			
+		\end{itemize}
+	\end{center}
+  \end{frame}
+    \begin{frame}
+    \frametitle{Literatura}
+	\begin{center}
+	\end{center}
+  \end{frame}
 % etc
 \end{document}
