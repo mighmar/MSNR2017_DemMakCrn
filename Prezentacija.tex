@@ -1,4 +1,5 @@
 \documentclass[xetex,mathserif,serif]{beamer}
+<<<<<<< HEAD
 \usepackage[export]{adjustbox}
 
 
@@ -12,6 +13,23 @@
 
 \usecolortheme[named=UBCblue]{structure}
 %\usecolortheme[named=Mahogany]{structure} % Sample dvipsnames color
+=======
+\usepackage{fontspec}
+\usepackage{multicol}
+
+%\usetheme{Darmstadt}
+%\usecolortheme{beetle}
+
+\usetheme{Madrid}
+\useoutertheme{miniframes} % Alternatively: miniframes, infolines, split
+\useinnertheme{circles}
+
+\definecolor{UBCblue}{rgb}{0.29412, 0.2745, 0.53334} % UBC Blue (primary)
+
+\usecolortheme[named=UBCblue]{structure}
+%\usecolortheme[named=Mahogany]{structure} % Sample dvipsnames color
+
+>>>>>>> 027fe05bf66b3e136da9d102dda18d12ac7efadc
 
 \usepackage{graphicx}
 \makeatletter
@@ -42,6 +60,134 @@
 
 \begin{document}
   \frame{\titlepage}
+  
+  \begin{frame}
+    \frametitle{Uvod}
+	    \framesubtitle{Pojmovi}
+		\begin{center}
+		\begin{itemize}
+			\item \textbf{Apstraktna interpretacija} je tehnika za automatsku statičku analizu programa
+			\item Zamena preciznih elemenata sa manje detaljnim apstrakcijama
+			\item Apstrakcija dovodi do gubitka sigurnih informacija što dovodi do nemogućnosti dovođenja zaključaka za sve programe
+			\item Otkrvanje greški nastalih tokom izvršavanja programa 
+				\begin{itemize}
+					\item deljenje sa 0
+					\item razna prekoračenja
+					\item mrtve petlje
+					\item ...
+				\end{itemize}
+		\end{itemize}
+	\end{center}
+  \end{frame}  
+  
+  \begin{frame}
+    \frametitle{Apstraktna interpretacija}
+	    \framesubtitle{Problem koji se rešava}
+		\begin{center}
+			\begin{itemize}
+			\item {Način transporta} \only<2-4> {(mapa je apstraktna reprezentacija)}
+			\begin{itemize}
+				\item avionom
+				\item voz
+				\item pešaka
+			\end{itemize}
+
+			\pause			
+			\pause			
+			
+	        \item $a_{+} \times a_{-}$ \only<4> {(pravilo znaka pri množenju)}\\
+    	    {\color{cyan} $\times$ množenje, $a_{+}$ pozitivan, $a_{-}$ negativan broj}
+    	\end{itemize}
+
+   		 \begin{itemize}
+     		\item $0 \times a_{+} = 0 \times a_{-} = a_{+} \times 0 = a_{-} \times 0 = 0$ \\
+     		$a_{+} \times a_{+} = a_{-} \times a_{-} = a_{+}$ \\
+     		$a_{+} \times a_{-} = a_{-} \times a_{+} = a_{-}$
+    	\end{itemize}
+	\end{center}
+  \end{frame}    
+  
+  
+  
+%\begin{frame}
+%    \begin{itemize}[<+->]
+%        \item A
+%        \item B
+%        \item C
+%    \end{itemize}
+
+%    \pause  % double pause here
+
+%    Some text.
+%\end{frame}
+  
+  
+\begin{frame}
+	\frametitle{Apstraktna interpretacija}
+	\framesubtitle{Problem koji se rešava}
+	\begin{multicols}{2}
+	\begin{itemize}
+     \item $a_{+} \pm a_{-}$ \\
+     {\color{cyan} $\pm$ sabiranje i oduzimanje}
+     
+     \item $0 \pm a_{-} = a_{-} \pm 0 = a_{-,0} $ \\
+      $a_{+} \pm a_{+} = a_{+}$ \\
+      $a_{-} \pm a_{-} = a_{-}$ \\
+    
+    \pause 
+     
+     \item $a_{+} \pm a_{-} = ??$ \\
+      $a_{-} \pm a_{+} = ??$
+     
+	\pause     
+     
+     \item $a_{0} = \{0\}$ \\
+      $a_{+} = \{n \mid n > 0\}$ \\
+      $a_{-} = \{n \mid n < 0\}$
+    
+    \end{itemize}
+    \end{multicols}
+
+	\pause
+
+	\begin{itemize}
+		\item $s \pm a = a \pm s = a \pm a = a \quad \text{gde je s} \in \{0, -, +\}$
+	\end{itemize}	       
+\end{frame}  
+
+
+\begin{frame}
+	\frametitle{Apstraktna interpretacija}
+	\framesubtitle{Korišćenje u računarstvu}
+	\begin{itemize}
+     \item Analiza strogosti:
+     \begin{itemize}
+		\item Optimizacija lenjih funkcionalnih programa identifikujući parametre koji mogu biti prosleđeni po vrednosti   
+		\only<3> {\item {\color{red} Analiza neće uspeti da detektovati neke parametre}}   
+     \end{itemize}
+     
+     \item Analiza menjanja u mestu:
+        \begin{itemize}
+			\item Određivanje mesta u programu gde je sigurno uništiti objekat  
+			\only<3> {\item {\color{red} Analiza će kopirati neke objekte koji su mogli biti uništeni}} 
+    	 \end{itemize}     	
+     \item Analiza moda:
+        \begin{itemize}
+			\item Brži rad Prologa prepoznavanjem ulazno-izlaznih promenljivih 
+			\only<3> {\item {\color{red} Analiza neće uspeti detektovati sve ulazno-izlazne promenljive}} 
+    	 \end{itemize}
+
+	\pause
+	\item Optimizacije zasnovane na apstraktnoj interpretaciji su \textbf{verovatno tačne}      
+      
+    \end{itemize}
+\end{frame} 
+
+
+
+
+  
+  
   \begin{frame}
     \frametitle{Formalizacija}
 	    \framesubtitle{Skupovi konkretnih i apstraktnih stanja}
@@ -88,7 +234,9 @@
 		\end{figure}
 		\end{center}
   \end{frame}
+  %
   \begin{frame}
+<<<<<<< HEAD
     \frametitle{Formalizacija}
     \framesubtitle{Operator proširenja}
     \begin{center}
@@ -112,11 +260,56 @@
   \end{frame}
   \begin{frame}
     \frametitle{Formalizacija}
+=======
+    \frametitle{Primeri}
+    \framesubtitle{Uvod}
+    \begin{center}
+		\begin{itemize}
+			\item Uglavnom intraproceduralna apstraktna interpretacija - vr\v si se za svaku funkciju posebno
+			\begin{itemize}
+				\item Tra\v zenje konstantnih varijabli
+				\item Dereferenciranje null pokaziva\v ca
+				\item Inicijalizacija promenljivih koje se kasnije koriste
+				\item \emph{lock/unlock, fopen/fclose}
+			\end{itemize}
+			\item Primer na problemu \emph{propagacije konstanti}
+			\begin{itemize}
+				\item Prolaz kroz funkciju koriste\v ci apstraktne vrednosti kao ulaz 
+				\item Apstraktna vrenost predstavlja skup konkretnih vrednosti
+				\item Kada imamo grananje, krenimo put obe grane
+				\item Gde imamo spajanje, spajamo izlaz iz obe grane
+			\end{itemize}
+		\end{itemize}
+	\end{center}
+  \end{frame}
+  \begin{frame}
+    \frametitle{Primeri}
+    \framesubtitle{Graf kontrole toka, CFG}
+>>>>>>> 027fe05bf66b3e136da9d102dda18d12ac7efadc
     \begin{figure}
 		\begin{center}
 		\includegraphics[scale=0.5]{Treehydra-cfg.png}
 		\end{center}
 	\end{figure}
+  \end{frame}
+  \begin{frame}
+    \frametitle{Primeri}
+    \framesubtitle{Karakteristike apstraktne interpretacije}
+	\begin{center}
+		\begin{itemize}
+			\item Ta\v cnost i pouzdanost
+				\begin{itemize}
+					\item Stati\v cka analiza nije savr\v sena, moramo praviti kompromis
+					\item Vr\v senje stro\v zijih provera, prijavljivanje la\v znih pozitiva
+					\item Bla\v ze provere, \v sansa da nam promaknu neke gre\v ske
+				\end{itemize}
+			\item Cena
+				\begin{itemize}
+					\item Algoritmi u najgorem slu\v caju eksponencijalne slo\v zenosti
+					\item Dosta se sporije vi\v si od procesa prevo\dj{}enja
+				\end{itemize}
+		\end{itemize}
+	\end{center}
   \end{frame}
   
 % etc
