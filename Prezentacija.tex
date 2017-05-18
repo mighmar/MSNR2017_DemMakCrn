@@ -69,14 +69,18 @@
 	    \framesubtitle{Problem koji se rešava}
 		\begin{center}
 			\begin{itemize}
-			\item Način transporta (mapa je apstraktna reprezentacija)
+			\item {Način transporta} \only<2-4> {(mapa je apstraktna reprezentacija)}
 			\begin{itemize}
 				\item avionom
 				\item voz
 				\item pešaka
 			\end{itemize}
-	        \item $a_{+} \times a_{-}$ \\
-    	    {\color{cyan} $\times$ pravilo znaka pri množenju, $a_{+}$ pozitivan, a $a_{-}$ negativan broj}
+
+			\pause			
+			\pause			
+			
+	        \item $a_{+} \times a_{-}$ \only<4> {(pravilo znaka pri množenju)}\\
+    	    {\color{cyan} $\times$ množenje, $a_{+}$ pozitivan, $a_{-}$ negativan broj}
     	\end{itemize}
 
    		 \begin{itemize}
@@ -143,20 +147,21 @@
      \item Analiza strogosti:
      \begin{itemize}
 		\item Optimizacija lenjih funkcionalnih programa identifikujući parametre koji mogu biti prosleđeni po vrednosti   
-		\item {\color{red} Analiza neće uspeti da detektovati neke parametre}   
+		\only<3> {\item {\color{red} Analiza neće uspeti da detektovati neke parametre}}   
      \end{itemize}
      
      \item Analiza menjanja u mestu:
         \begin{itemize}
 			\item Određivanje mesta u programu gde je sigurno uništiti objekat  
-			\item {\color{red} Analiza će kopirati neke objekte koji su mogli biti uništeni} 
+			\only<3> {\item {\color{red} Analiza će kopirati neke objekte koji su mogli biti uništeni}} 
     	 \end{itemize}     	
      \item Analiza moda:
         \begin{itemize}
 			\item Brži rad Prologa prepoznavanjem ulazno-izlaznih promenljivih 
-			\item {\color{red} Analiza neće uspeti detektovati sve ulazno-izlazne promenljive} 
+			\only<3> {\item {\color{red} Analiza neće uspeti detektovati sve ulazno-izlazne promenljive}} 
     	 \end{itemize}
 
+	\pause
 	\item Optimizacije zasnovane na apstraktnoj interpretaciji su \textbf{verovatno tačne}      
       
     \end{itemize}
