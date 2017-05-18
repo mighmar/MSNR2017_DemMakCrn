@@ -258,7 +258,7 @@
 		$$
 		\pause
 		\begin{itemize}
-			\item $lim_{n \rightarrow \infty }f^{n}_{\nabla} \quad$ --- \quad {\color{green} aproksimira najmanju fiksnu ta\v cku}
+			\item $lim_{n \rightarrow \infty }f^{n}_{\nabla} \quad$ --- \quad {\color{green} aproksimira najmanju fiksnu tačku}
 		\end{itemize}
 	\end{center}
   \end{frame}
@@ -267,16 +267,16 @@
     \framesubtitle{Uvod}
     \begin{center}
 		\begin{itemize}
-			\item Uglavnom intraproceduralna apstraktna interpretacija - vr\v si se za svaku funkciju posebno
+			\item Uglavnom intraproceduralna apstraktna interpretacija - vrši se za svaku funkciju posebno
 			\begin{itemize}
-				\item Tra\v zenje konstantnih varijabli
-				\item Dereferenciranje null pokaziva\v ca
+				\item Traženje konstantnih varijabli
+				\item Dereferenciranje null pokazivača
 				\item Inicijalizacija promenljivih koje se kasnije koriste
 				\item \emph{lock/unlock, fopen/fclose}
 			\end{itemize}
 			\item Primer na problemu \emph{propagacije konstanti}
 			\begin{itemize}
-				\item Prolaz kroz funkciju koriste\v ci apstraktne vrednosti kao ulaz 
+				\item Prolaz kroz funkciju koristeći apstraktne vrednosti kao ulaz 
 				\item Apstraktna vrenost predstavlja skup konkretnih vrednosti
 				\item Kada imamo grananje, krenimo put obe grane
 				\item Gde imamo spajanje, spajamo izlaz iz obe grane
@@ -303,27 +303,27 @@
     \framesubtitle{Karakteristike apstraktne interpretacije}
 	\begin{center}
 		\begin{itemize}
-			\item Ta\v cnost i pouzdanost
+			\item Tačnost i pouzdanost
 				\begin{itemize}
-					\item Stati\v cka analiza nije savr\v sena, moramo praviti kompromis
-					\item Vr\v senje stro\v zijih provera, prijavljivanje la\v znih pozitiva
-					\item Bla\v ze provere, \v sansa da nam promaknu neke gre\v ske
+					\item Statička analiza nije savršena, moramo praviti kompromis
+					\item Vršenje strožijih provera, prijavljivanje lažnih pozitiva
+					\item Blaže provere, šansa da nam promaknu neke greške
 				\end{itemize}
 			\item Cena
 				\begin{itemize}
-					\item Algoritmi u najgorem slu\v caju eksponencijalne slo\v zenosti
-					\item  {\color{green} Test se izvr\v sava direktno nad kodom}
-					\item {\color{red} Dosta se sporije vi\v si od procesa prevo\dj{}enja}
+					\item Algoritmi u najgorem slučaju eksponencijalne složenosti
+					\item  {\color{green} Test se izvršava direktno nad kodom}
+					\item {\color{red} Dosta se sporije vrši od procesa prevođenja}
 				\end{itemize}
 		\end{itemize}
 	\end{center}
   \end{frame}
   \begin{frame}
-    \frametitle{Zaklju\v cak}
+    \frametitle{Zaključak}
 	\begin{center}
 		\begin{itemize}
  			\item Veoma zanimljiva tema \pause
-			\item Primarno se koristi za stati\v cku verifikaciju \pause
+			\item Primarno se koristi za statičku verifikaciju \pause
 			\item Uglavnom se ne koristi se u kompajlerima \pause
 			\begin{itemize}
 				\item $\dots$ {\color{green} ali ima puno potencijala}
