@@ -29,7 +29,7 @@ Relacija poretka koju uvodimo nad prostorom svojstava je takva da su veći eleme
 
 Sada želimo dovesti u vezu konkretna stanja programa sa apstraktnim stanjima koja ih modeliraju putem relacije $\rho \subseteq V \times L$ kao što je prikazano na slici \ref{fig:Rho} \footnote{slika je preuzeta sa izmenama iz \cite{salcianu}}. Zahtevamo sledeće od ove relacije:
 \begin{enumerate}
-\item $\forall v,\, l_{1},\, l_{2},\, (v\: \rho \: l_{1}) \vee (l_{1} \sqsubseteq l_{2}) \Rightarrow (v\: \rho \: l_{2})$
+\item $\forall v,\, l_{1},\, l_{2},\, (v\: \rho \: l_{1}) \wedge (l_{1} \sqsubseteq l_{2}) \Rightarrow (v\: \rho \: l_{2})$
 \item $\forall v,\, L^{\prime} \subseteq L, (\forall l \in L^{\prime}, 	(v\: \rho \: l)) \Rightarrow v\: \rho \: (\bigsqcap L^{\prime})$
 \end{enumerate}
 
