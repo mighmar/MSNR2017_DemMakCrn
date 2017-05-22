@@ -1,24 +1,24 @@
 
-Kao što se vidi iz prethodnog poglavlja apstraktna interpretacija je tehnika za automatsku statičku analizu programa. Sastoji se od zamene preciznih elemenata programa sa manje detaljnim apstrakcijama. Apstrakcija dovodi do gubitka sigurnih informacija, informacija koje su eksplicitno date, usred samog procesa apstrahovanja što dovodi do nemogućnosti dovođenja zaključaka za sve programe. Apstraktna interpretacija omogućava da otkrijemo greške nastale tokom izvršavanja programa, kao što su deljenje sa 0, prekoračenje, itd, a takođe otkriva korišćenje zajedničkih promenljivih i mrtvih petlji \cite{AbramskyHankin}. \\ 
+Kao što se vidi u poglavlju \ref{Uvod} apstraktna interpretacija je tehnika za automatsku statičku analizu programa. Sastoji se od zamene preciznih elemenata programa sa manje detaljnim apstrakcijama. Apstrakcija dovodi do gubitka sigurnih informacija, informacija koje su eksplicitno date, usred samog procesa apstrahovanja što dovodi do nemogućnosti dovođenja zaključaka za sve programe. Apstraktna interpretacija omogućava da otkrijemo greške nastale tokom izvršavanja programa, kao što su deljenje sa 0, prekoračenje, itd, a takođe otkriva korišćenje zajedničkih promenljivih i mrtvih petlji \cite{AbramskyHankin}. 
 
-Glavna prednost alata koji koriste apstraktnu interpretaciju je da se test obavlja bez ikakve pripreme, baziran na kodu projekta. Ako se uporedi sa troškovima jediničnog testiranja, to predstavlja značajan argument \cite{AbramskyHankin}. \\
+Glavna prednost alata koji koriste apstraktnu interpretaciju je da se test obavlja bez ikakve pripreme, baziran na kodu projekta. Ako se uporedi sa troškovima jediničnog testiranja, to predstavlja značajan argument \cite{AbramskyHankin}. 
 
 
 \subsection{Problem koji se rešava}
 \label{subsec:problem1}
-Da bi se lakše shvatio problem prvo ćemo pokazati tri neprogramerska primera apstraktne interpretacije. Ovi primeri će služiti za uspostavljanje principa pristupa. \\
+Da bi se lakše shvatio problem prvo ćemo pokazati tri neprogramerska primera apstraktne interpretacije. Ovi primeri će služiti za uspostavljanje principa pristupa. 
 
-Pretpostavimo da želimo da putujemo negde. Jedna od odluka koju moramo napraviti je da li želimo da hodamo, vozimo se ili letimo. Umesto da ovu odluku sprovodimo metodom pokušaja i greške, mi ćemo koristiti osobinu putovanja, udaljenost (koju možemo izmeriti na mapi) da odlučimo koji je najbolji način transporta. Mapa je apstraktna reprezentacija putovanja i merenjem rastojanja mi apstrahujemo sam proces putovanja \cite{AbramskyHankin}. \\
+Pretpostavimo da želimo da putujemo negde. Jedna od odluka koju moramo napraviti je da li želimo da hodamo, vozimo se ili letimo. Umesto da ovu odluku sprovodimo metodom pokušaja i greške, mi ćemo koristiti osobinu putovanja, udaljenost (koju možemo izmeriti na mapi) da odlučimo koji je najbolji način transporta. Mapa je apstraktna reprezentacija putovanja i merenjem rastojanja mi apstrahujemo sam proces putovanja \cite{AbramskyHankin}. 
 
 Slično ovom, može nam biti zadato da odredimo za neki broj da li je paran ili neparan. Sve što trebamo učiniti u tom slučaju jest videti da li je najmanje značajna cifra broja parna ili neparna - zadatak koji
-zahteva manje računarskog napora nego deliti celi broj za dva (osim ako je jednocifren broj). \\
+zahteva manje računarskog napora nego deliti celi broj za dva (osim ako je jednocifren broj). 
 
 
 Treći primer, formalniji, gradi se korišćenjem pravila znaka. Određujemo znak rezultata množenja. Ako se pitamo koji je znak
 
 336 * (-398)  
 
-mi odmah znamo da je rezultat negativan. Bez izvođenja operacije množenja mi određujemo znak na osnovu pravila znaka. Znamo da će množenje pozitivnog i negativnog broja uvek proizvesti za rezultat negativan broj. Ovaj treći primer je malo bliži apstraktnoj interpretaciji kod programiranja tako da ćemo malo dublje zaći u njega \cite{AbramskyHankin}. \\
+mi odmah znamo da je rezultat negativan. Bez izvođenja operacije množenja mi određujemo znak na osnovu pravila znaka. Znamo da će množenje pozitivnog i negativnog broja uvek proizvesti za rezultat negativan broj. Ovaj treći primer je malo bliži apstraktnoj interpretaciji kod programiranja tako da ćemo malo dublje zaći u njega \cite{AbramskyHankin}. 
 
 Da bismo razumeli apstraktnu interpretaciju moramo da prebacimo zadatak u sledeću formu:
 
@@ -34,24 +34,24 @@ gde $\times$ predstavlja pravilo znaka pri množenju, $a_{+}$ pozitivan, a $a_{-
   	a_{+} \times a_{-} = a_{-} \times a_{+} = a_{-} \\
 \end{multline}
 
-Do sada nismo razmatrali korektnost interpretacije, ali treba da bude jasno da možemo dobiti potpuno tačne odgovore u oba primera. Ova situacija postaje mnogo nejasnija ako umesto množenja posmatramo sabiranje i oduzimanje. Prvih nekoliko redova ne pred\-stavljaju neki problem \\
+Do sada nismo razmatrali korektnost interpretacije, ali treba da bude jasno da možemo dobiti potpuno tačne odgovore u sva tri primera. Ova situacija postaje mnogo nejasnija ako umesto množenja posmatramo sabiranje. Prvih nekoliko redova ne pred\-stavljaju neki problem 
 
 \begin{multline} \\
-	0 \pm a_{+} = a_{+} \pm 0 = a_{+,0} \\ 
-	0 \pm a_{-} = a_{-} \pm 0 = a_{-,0} \\ 
-	a_{+} \pm a_{+} = a_{+}  \\ 
-	a_{-} \pm a_{-} = a_{-}  \\ 
+	0 + a_{+} = a_{+} + 0 = a_{+,0} \\ 
+	0 + a_{-} = a_{-} + 0 = a_{-,0} \\ 
+	a_{+} + a_{+} = a_{+}  \\ 
+	a_{-} + a_{-} = a_{-}  \\ 
 \end{multline}
 
 
 Ali ostatak je problematičan:
 
 \begin{multline}	\\
-	a_{+} \pm a_{-} = ?? \\ 
-	a_{-} \pm a_{+} = ?? \\ 
+	a_{+} + a_{-} = ?? \\ 
+	a_{-} + a_{+} = ?? \\ 
 \end{multline}
 
-Ako bi stavili znak (0, +, -), a da ne znamo vrednosti u nekim slu\-čajevima bi pogrešili jer odgovor zavisi od vrednosti na koje se primenjuje. Kako možemo da okarakterišemo pravi izbor za ?? ? Da bi mogli to da uradimo moramo da znamo koji znak u apstraktnom izračunavanju predstavlja:
+Ako bi stavili znak (0, +, -), a da ne znamo vrednosti u nekim slu\-čajevima bi pogrešili jer odgovor zavisi od vrednosti na koje se primenjuje. Kako za ?? možemo da okarakterišemo pravi? Da bi mogli to da uradimo moramo da znamo koji znak u apstraktnom izračunavanju predstavlja:
 
 \begin{multline}	\\
 	a_{0} = \{0\}				\\    
@@ -62,7 +62,7 @@ Ako bi stavili znak (0, +, -), a da ne znamo vrednosti u nekim slu\-čajevima bi
 Iz ovoga sledi da je apstraktni račun tačan ukoliko je stvarna vrednost član skupa koji apstraktna vrednost predstavlja. Ako je ovo slučaj kaže se da je apstraktna interpretacija sigurna. Ako koristimo $a$ da predstavimo cele brojeve, dobijamo sigurnu verziju sabiranja dodavanjem pravila:
 
 \begin{multline}	
-	s \pm a = a \pm s = a \pm a = a \quad \text{gde je s} \in \{0, -, +\}
+	s + a = a + s = a + a = a \quad \text{gde je s} \in \{0, -, +\}
 \end{multline}
 \cite{AbramskyHankin}
 
@@ -71,41 +71,46 @@ Iz ovoga sledi da je apstraktni račun tačan ukoliko je stvarna vrednost član 
 Zbog čega je apstraktna interpretacija korisna u računarstvu? Mnogi tradicionalni optimizatori koji su zasnovani na toku upravljanja (engl. Control flow) i na analizi toka podataka (engl. Data-flow analysis) se uklapaju u okvir apstraktne interpretacije. Neke posebne analize koje su značajne u deklarativnim jezicima su:
 
 \begin{itemize}
-\item \textit{Analiza strogosti} (engl. Strictness analysis\cite{AbramskyHankin}):
+\item \textit{Analiza strogosti} (engl. Strictness analysis \cite{AbramskyHankin}):
 Analiza koja omogućava optimizaciju lenjih funkcionalnih programa identifikujući parametre koji mogu biti prosleđeni po vrednosti. Na ovaj način se izbegava potreba za pravljenjem zatvorenja (engl. closure) i otvara se mogućnost paralelne evaluacije. 
 
-\item \textit{Analiza menjanja u mestu} (engl. In-place update analysis) \cite{CannPhd}:
-Ova analiza nam omogućava da odredimo tačke u programu na kojima je sigurno da se uništi objekat. Objekat se uništava kada nema ni jedan pokazivač koji pokazuje na njega. Rezultate u ovoj oblasti je doneo Hudak. Značajan rezultat je, po prvi put, funkcionalna verzija kviksort (engl. quicksort) algoritma koja može da se pokrene u linearnom prostoru. \cite{Girard1987}
+\item \textit{Analiza menjanja u mestu} (engl. In-place update analysis \cite{CannPhd}):
+Ova analiza nam omogućava da odredimo tačke u programu na kojima je sigurno da se uništi objekat. Objekat se uništava kada nema ni jedan pokazivač koji pokazuje na njega. Rezultate u ovoj oblasti je doneo Hudak. Značajan rezultat je, po prvi put, funkcionalna verzija kviksort (engl. quicksort) algoritma koja može da se pokrene u linearnom prostoru \cite{Girard1987}. 
 
 %\item \textit{Analiza relevantnih klauza} (eng. Relevant clause analysis):
 %U mnogim prototipovima 5. generacije arhitekture\cite{japanFGCS} programi %mogu da naprave nelokalni pristup definicijama funkcija. Ovo povlači da %postoji komunikacija povezana sa izvršavanjem programa. Korišćenjem %analize delova postaje moguće identifikovati delove definicije funkcije %koji su relevantni za naš program i tako smanjiti troškove.  
 
-%\item \textit{Analiza moda} (engl. Mode analysis) \cite{AbramskyHankin}:
-%Značajno povećanje performansi može se postići u Prologu ako se zna kako se logičke promenljive koriste u relaciji (kao ulazne, izlazne ili oba).
+\item \textit{Analiza moda} (engl. Mode analysis) \cite{AbramskyHankin}:
+Značajno povećanje performansi može se postići u Prologu ako se zna kako se logičke promenljive koriste u relaciji (kao ulazne, izlazne ili oba).
 %Kada je deklarativna zajednica postala svesna apstraktne interpretacije, nove aplikacije su otkrivene. 
 
 \end{itemize}
-Optimizacije zasnovane na apstraktnoj interpretaciji su verovatno tačne. Ako ovo prebacimo u gornje primere to bi bilo:
+
+
+Optimizacije zasnovane na apstraktnoj interpretaciji su tačne, ali se može dogoditi da neka od optimizacija iako je moguća ne bude izvršena. Razlog za eventualno neizvršenje možemo naći u tome što se pri samom procesu apstrahovanja mogu izgubiti podaci na osnovu kojih može da se zaključi da se sme izvršiti optimizacija. Ako ovo prebacimo u gornje primere to bi bilo:
+
+
+
 
 \begin{itemize}
 \item Analiza strogosti:
 Ako stroga analiza utvrdi da je funkcija stroga u argumentima onda to ona definitivno i jeste, ali analiza neće uspeti da detektuje neke parametre koji mogu biti prosleđeni po vrednosti. 
 
 \item Analiza menjanja u mestu:
-Ako analiza menjanja u mestu ukaže da možemo destruktivno da ažuriramo podatke onda i možemo ali ćemo kopirati neke objekte koji su mogli biti uništeni. \cite{Girard1987}
+Ako analiza menjanja u mestu ukaže da možemo destruktivno da ažuriramo podatke onda i možemo ali ćemo kopirati neke objekte koji su mogli biti uništeni \cite{Girard1987}. 
 
 %\item Analiza relevantnih klauza:
 %Analiza relevantnih klauza će nas terati da komuniciramo sa nadskupom koda %koji je u stvari samo potreban za neke posebne aplikacije.  
 
-%\item Analiza moda:
-%Analiza moda nekad neće uspeti da detektuje logičke promenljive koje se isključivo koriste kao ulazno-izlazne promenljive. 
+\item Analiza moda:
+Analiza moda nekad neće uspeti da detektuje logičke promenljive koje se isključivo koriste kao ulazno-izlazne promenljive. 
 
 \end{itemize}
 
 \subsection{Aktuelna primena}
-Apstraktna interpretacija je široko primenjena u domenu analize i verifikacije koda gde postoji veliki broj aplikacija zasnovanih na njoj koja se već uveliko koriste u industriji\cite{Wilhelm-Wachter}. Među poznatijim alatima tog tipa mogu se navesti Parasoft C/C++test, Frama-C i Polyspace \footnote{Parasoft: \url{https://www.parasoft.com/product/cpptest/}, Frama-C: \url{http://frama-c.com/}, Polyspace: \url{https://www.mathworks.com/products/polyspace.html?s_cid=wiki_polyspace_2}}. \\
+Apstraktna interpretacija je široko primenjena u domenu analize i verifikacije koda gde postoji veliki broj aplikacija zasnovanih na njoj koja se već uveliko koriste u industriji\cite{Wilhelm-Wachter}. Među poznatijim alatima tog tipa mogu se navesti Parasoft C/C++test, Frama-C i Polyspace \footnote{Parasoft: \url{https://www.parasoft.com/product/cpptest/}, Frama-C: \url{http://frama-c.com/}, Polyspace: \url{https://www.mathworks.com/products/polyspace.html?s_cid=wiki_polyspace_2}}. 
 
-U oblasti kompajlera, naprotiv, implementacija čiste apstraktne interpretacije znatno je ređa, uprkos ranom prepoznavanju potencijala za optimizaciju koda\cite{cousot}. 	Posebno zanimljiv primer je CIAO\footnote{\url{http://ciao-lang.org/}}, multiparadigmatski kompajler za jezike programiranja ograničenja namenjenih konkurentnom izvršavanju na više procesora. Njegov pretprocesor izvršava analize nad više različitih apstraktnih domena pomoću generičkog interpretatora koji radi 	s vrha naniže. \cite{ciao-report}. \\
+U oblasti kompajlera, naprotiv, implementacija čiste apstraktne interpretacije znatno je ređa, uprkos ranom prepoznavanju potencijala za optimizaciju koda\cite{cousot}. 	Posebno zanimljiv primer je CIAO\footnote{\url{http://ciao-lang.org/}}, multiparadigmatski kompajler za jezike programiranja ograničenja namenjenih konkurentnom izvršavanju na više procesora. Njegov pretprocesor izvršava analize nad više različitih apstraktnih domena pomoću generičkog interpretatora koji radi 	s vrha naniže. \cite{ciao-report}. 
 
 Mnogi kompajleri poput GCC, Rosylyn, Clang i Stalin koriste analizu toka podataka ili neke njene aspekte za optimizaciju, ali treba imati na umu da iako se ova tehnika može posmatrati kao podvrsta apstraktne interpretacije, ona je znatno starija od nje i nije informisana teorijskim uvidima koje su otkrili bračni par Kuso i kasniji istraživači, te se oslanja na konkretne domene i ne koristi operatore proširenja.
 
