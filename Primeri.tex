@@ -23,7 +23,7 @@ opis ovog metoda statičke analize.\\
 Neke napomene:
 \begin{itemize}
 \item Veze između čvorova grafa su predstavljene kao grane, pojavljuju se u slučaju
-kada imamo naredbe kontrole toka(petlje, uslovni/bezuslovni skokovi itd.).
+kada imamo naredbe kontrole toka (petlje, uslovni/bezuslovni skokovi itd.).
 \item Naredbe imaju najviše jednu dodelu i tačno jednu operaciju. U slučaju naredbe
 sa više operacija, vršimo razdvajanje na naredbe sa po jednom operacijom, čije
 ćemo rezultate čuvati u pomoćnim promenljivama.
@@ -47,10 +47,10 @@ programa uvek referisati na ove tačke.
 Pre nego što prođemo kroz primer koji opisuje proces apstraktne interpretacije,
 napravićemo jedan prolaz kroz funkciju koju ispitujemo koristeći konkretne vrednosti
 kao ulaz. Pritom ćemo pratiti promenljive unutar funkcije, obraćajući pažnju na
-one koje su zadržale istu vrednost tokom izvršavanja. Uzmimo sledeće vrenosti za ulaz
+one koje su zadržale istu vrednost tokom izvršavanja. Uzmimo sledeće vrednosti za ulaz
 \texttt{a = 0, b = 7}:
 \verbatiminput{snippets/ex2_1.txt} 
-Dakle, texttt{k = 2} pre nego što se koristi u naredbi \texttt{t1 := k + m}.
+Dakle, \texttt{k = 2} pre nego što se koristi u naredbi \texttt{t1 := k + m}.
 Možemo pokrenuti funkciju za ostale ulaze i dobili bismo isti rezultat.
 Međutim, ovakav način testiranja nam ne može potvrditi da je \texttt{k = 2} za
 sve moguće ulaze. (Doduše može, ali samo ako bismo proverili sve moguće vrednosti
