@@ -1,12 +1,12 @@
-Označimo izvršno stanje programa u datom trenutku, pod čime se podrazumeva vrednost promenljivih kao i mesto u kodu do koga se došlo, odnosno na koje pokazuje programski brojač, sa $v \in V$ gde je $V$ skup svih takvih stanja. Tada možemo primetiti binarnu relaciju prelaska stanja $v_{0} \rightsquigarrow v_{1}$ koja predstavlja da stanje $v_{1}$ može uslediti za stanjem $v_{0}$. \footnote{Ovo poglavlje se primarno oslanja na \cite{salcianu}, gde se mogu naći dokazi tvrdnji koji su ovde izostavljeni radi sažetosti.} \\
+Označimo izvršno stanje programa u datom trenutku, pod čime se podrazumeva vrednost promenljivih kao i mesto u kodu do koga se došlo, odnosno na koje pokazuje programski brojač, sa $v \in V$ gde je $V$ skup svih takvih stanja. Tada možemo primetiti binarnu relaciju prelaska stanja $v_{0} \rightsquigarrow v_{1}$ koja predstavlja da stanje $v_{1}$ može uslediti za stanjem $v_{0}$. \footnote{Ovo poglavlje se primarno oslanja na \cite{salcianu}, gde se mogu naći dokazi tvrdnji koji su ovde izostavljeni radi sažetosti.}
 
-Bitno je napomenuti da se ova relacija ne može zameniti funkcijom koja bi slikala jedno stanje u iduće, jer prelazak može zavisiti od okolnosti koje nisu definisane unutar programa, poput učitavanja podataka ili redosleda izvršavanja instrukcija u slučajevima kada program ima više niti, tako da može postojati više različitih stanja u koje jedno stanje prelazi. Posebno su nam zanimljiva stanja $$... \rightsquigarrow v_{n} \rightsquigarrow v_{n}$$ koja odgovaraju zaustavljanjima programa. \\
+Bitno je napomenuti da se ova relacija ne može zameniti funkcijom koja bi slikala jedno stanje u iduće, jer prelazak može zavisiti od okolnosti koje nisu definisane unutar programa, poput učitavanja podataka ili redosleda izvršavanja instrukcija u slučajevima kada program ima više niti, tako da može postojati više različitih stanja u koje jedno stanje prelazi. Posebno su nam zanimljiva stanja $$... \rightsquigarrow v_{n} \rightsquigarrow v_{n}$$ koja odgovaraju zaustavljanjima programa. 
  
-Budući da je u opštem slučaju jedini način da odredimo $v$ da izvršimo sam program, uopštićemo problem uvođenjem pojma prostora svojstava $L$. Njegovi elementi $l \in L$, koje nazivamo apstraktnim stanjima, obuhvataće svojstva koja stanja u koja program dospeva u datom trenutku imaju. Potrebno je naglasiti da dato apstraktno stanje ne predstavlja svojstva jednog konkretnog stanja, već više konkretnih stanja te da pojedinačne promenljive apstraktnih stanja uzimaju vrednosti iz partitivnog domena odnosno skupa podskupova domena promenljivih u konkretnim stanjima.\cite{denotationalsemantics} \\
+Budući da je u opštem slučaju jedini način da odredimo $v$ da izvršimo sam program, uopštićemo problem uvođenjem pojma prostora svojstava $L$. Njegovi elementi $l \in L$, koje nazivamo apstraktnim stanjima, obuhvataće svojstva koja stanja u koja program dospeva u datom trenutku imaju. Potrebno je naglasiti da dato apstraktno stanje ne predstavlja svojstva jednog konkretnog stanja, već više konkretnih stanja te da pojedinačne promenljive apstraktnih stanja uzimaju vrednosti iz partitivnog domena odnosno skupa podskupova domena promenljivih u konkretnim stanjima \cite{denotationalsemantics}.
 
-Nad prostorom svojstava već možemo definisati funkciju $f_{L}:L\rightarrow L$ koja slika apstraktno stanje u ono koje mu sledi.
+Nad prostorom svojstava već možemo definisati funkciju $f_{L}:L\rightarrow L$ koja slika apstraktno stanje u ono koje mu sledi. 
 
-Pokazaće se korisno definisati dodatnu strukturu nad $L$: \\
+Pokazaće se korisno definisati dodatnu strukturu nad $L$:
 \begin{definicija}
 Neka je nad $L$ definisana relacija poretka, odnosno relacija $\sqsubseteq$ takva da za sve $a, b, c \in L$ važi
 \begin{enumerate}
@@ -14,7 +14,7 @@ Neka je nad $L$ definisana relacija poretka, odnosno relacija $\sqsubseteq$ takv
 \item ako su $a \sqsubseteq b$ i $b \sqsubseteq a$ tada $a = b$ (Antisimetričnost)
 \item ako su $a \sqsubseteq b$ i $b \sqsubseteq c$ tada $a \sqsubseteq c$ (Tranzitivnost)
 \end{enumerate}
-Ukoliko za svaki podskup $L\prime \subseteq L$ postoji najmanja gornja granica $\bigsqcup L^{\prime}$ i najveća donja granica $\bigsqcap L^{\prime}$ tada se $L$ naziva \emph{potpunom mrežom}. \cite{algebra}
+Ukoliko za svaki podskup $L\prime \subseteq L$ postoji najmanja gornja granica $\bigsqcup L^{\prime}$ i najveća donja granica $\bigsqcap L^{\prime}$ tada se $L$ naziva \emph{potpunom mrežom} \cite{algebra}. 
 \end{definicija} 
 
 \begin{figure}
@@ -43,9 +43,9 @@ Nažalost, u praksi je takav račun nemoguć ili makar veoma zahtevan. Umesto to
 
  Ako je uz to funkcija i \emph{neprekidna}, $\bigsqcup f_{L}[L^{\prime}] = f_{L}[\bigsqcup L^{\prime}]$, tada se najmanja fiksna tačka može izračunati kao $$\bigsqcup \{ \: f^{n}_{L}(\bot)\: \}_{n \in \mathbb{N}} \quad \text{gde je} \quad f^{0}_{L}(\bot) = \bot \quad \text{i} \quad f^{n}_{L}(\bot) = f_{L}(f^{n-1}_{L}(\bot)) \quad \cite{baranga}$$
 
-Ipak, i ovom slučaju niz $f^{n}_{L} ( \bot )$ može previše sporo konvergirati, zbog čega uvodimo još jedan, grublji, prostor svojstava $M$ koji će služiti kao apstrakcija za $L$. Da bi objasnili odnos između ova dva prostora, moramo uvesti koncept galoaove veze:
+Ipak, i ovom slučaju niz $f^{n}_{L} ( \bot )$ može previše sporo konvergirati, zbog čega uvodimo još jedan, grublji, prostor svojstava $M$ koji će služiti kao apstrakcija za $L$. Da bi objasnili odnos između ova dva prostora, moramo uvesti koncept Galoaove veze:
 \begin{definicija}
-Neka su $(A, \geqslant)$ i $(B, \geqslant)$ parcijalno uređeni skupovi a $F : A \rightarrow B$ i $G : B \rightarrow A$ monotone funkcije. Tada je $\langle A, 	F, G, B \rangle$ \emph{galoaova veza} ukoliko važi 
+Neka su $(A, \geqslant)$ i $(B, \geqslant)$ parcijalno uređeni skupovi a $F : A \rightarrow B$ i $G : B \rightarrow A$ monotone funkcije. Tada je $\langle A, 	F, G, B \rangle$ \emph{Galoaova veza} ukoliko važi 
 \begin{enumerate}
 \item $\forall a \in A, \, a \leqslant G (F (a))$ 
 \item $\forall b \in B, \, b \geqslant F (G (b))$
@@ -53,10 +53,13 @@ Neka su $(A, \geqslant)$ i $(B, \geqslant)$ parcijalno uređeni skupovi a $F : A
 \end{definicija} 
 
 \begin{teorema}
-Ako između $L$ i $M$ postoji galoaova veza $\langle L, \alpha, \gamma, B \rangle$ tada je $\rho^{\prime} \subseteq M \times V$, takva da $$m\: \rho^{\prime}\: v \iff \gamma (m)\: \rho \: v$$ takođe relacija ispravnosti.
+Ako između $L$ i $M$ postoji Galoaova veza $\langle L, \alpha, \gamma, B \rangle$ tada je $\rho^{\prime} \subseteq M \times V$, takva da $$m\: \rho^{\prime}\: v \iff \gamma (m)\: \rho \: v$$ takođe relacija ispravnosti.
 \end{teorema}
 
-Druga tehnika je korišćenje operatora proširenja $\nabla : L \times L \rightarrow L$ takvog da je $x, y \sqsubseteq x \nabla y$ za sve $x, y$ i pomoću koga se za bilo koji rastući niz $(y_{n})_{n}$ može napraviti niz $$(x^{\prime}_{n})_{n} \quad \text{gde je} \quad x^{\prime}_{0} = y_{0} \quad \text{i} \quad x^{\prime}_{n} = x^{\prime}_{n-1} \nabla y_{n} $$ takav da konvergira u konačnom broju koraka. \\
+\subsection{Operator proširenja}
+\label{subsec:widop}
+
+Druga tehnika je korišćenje operatora proširenja $\nabla : L \times L \rightarrow L$ takvog da je $x, y \sqsubseteq x \nabla y$ za sve $x, y$ i pomoću koga se za bilo koji rastući niz $(y_{n})_{n}$ može napraviti niz $$(x^{\prime}_{n})_{n} \quad \text{gde je} \quad x^{\prime}_{0} = y_{0} \quad \text{i} \quad x^{\prime}_{n} = x^{\prime}_{n-1} \nabla y_{n} $$ takav da konvergira u konačnom broju koraka.
 
 Najčešće za funkciju prelaska $f_{L}$ pravimo niz $(f^{n}_{\nabla})_{n}$ takav da:
 $$

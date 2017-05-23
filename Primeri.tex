@@ -19,10 +19,11 @@ ulaznih parametara funkcije, niti od dela koda koji se izvršavao u toj funkciji
 Svaki deo koda \ref{ex1} se može predstaviti \emph{grafom kontrole toka (eng. control flow graph, CFG)},
 i upravo takva reprezentacija će se koristiti za opis apstraktne interpretacije.
 Slika \ref{fig:graf} prikazuje funkciju predstavljenu na ovaj način, koju ćemo koristiti za
-opis ovog metoda statičke analize.\\
+opis ovog metoda statičke analize.
+
 Neke napomene:
 \begin{itemize}
-\item Veze između čvorova grafa su predstavljene kao grane, pojavljuju se u slučaju
+\item Veze između čvorova grafa su predstavljene kao grane, pojavljuju se u sluča\-ju
 kada imamo naredbe kontrole toka (petlje, uslovni/bezuslovni skokovi itd.).
 \item Naredbe imaju najviše jednu dodelu i tačno jednu operaciju. U slučaju naredbe
 sa više operacija, vršimo razdvajanje na naredbe sa po jednom operacijom, čije
@@ -76,12 +77,14 @@ tako da \texttt{2 + ? $\longrightarrow$ ?}. Preostali slučaj testira \texttt{a 
 \verbatiminput{snippets/ex2_3.txt}
 Posle ovog koraka se vidi da su pokriveni svi mogući ulazi, kao i svaki deo koda
 funkcije, stoga možemo zaključiti da je \texttt{k = 2} uvek tačno pre nego što
-dođemo do naredbe \texttt{t1 := k + m}. \\
+dođemo do naredbe \texttt{t1 := k + m}.
+
 Procedura koju smo upravo ispratili daje određen uvid kako bismo krenuli u proces
 apstraktne interpretacije, ali nismo generalizovali samu proceduru. Tačno smo
 znali koje apstraktne vrednosti da koristimo za test slučajeve, i to smo mogli
 samo zato što smo imali kao primer jednostavnu funkciju. Ova metoda neće biti
-primenjiva na komplikovane funkcije, i nije automatizovana.\\
+primenjiva na komplikovane funkcije, i nije automatizovana.
+
 Drugi problem je što smo posmatrali svaku granu funkcije posebno. Funckija sa \texttt{k} iskaza može imati i do
 \texttt{$2^k$} grana, dok funkcija sa petljama ih može imati i beskonačno, i ovo nam onemogućava da imamo kompletnu
 pokrivenost.
@@ -121,11 +124,11 @@ Gde dobijamo odgovor koji smo želeli, \texttt{k = 2}. Osnovne ideje su bile:
 \subsection{Primer upotrebe operatora proširenja}
 \label{subsec:widening}
 
-Razmotrimo sada primer \ref{ex3}. Jasno je da naša analiza ne može proći kroz petlju svih 10000 puta, u opštem slučaju mi ni ne možemo znati postoji li izlaz iz date petlje. Zato je potrebno upotrebiti gorepomenuti operator proširenja, u ovom slučaju takav da se desni kraj intervala proširi do beskonačnosti što nam daje fiksnu tačku operacije koja se izvršava unutar petlje. \\ 
+Razmotrimo sada primer \ref{ex3}. Jasno je da naša analiza ne može proći kroz petlju svih 10000 puta, u opštem slučaju mi ni ne možemo znati postoji li izlaz iz date petlje. Zato je potrebno upotrebiti operator proširenja pomenut u potpoglavlju \ref{subsec:widop}, u ovom slučaju takav da se desni kraj intervala proširi do beskonačnosti što nam daje fiksnu tačku operacije koja se izvršava unutar petlje. 
 
 \lstinputlisting[language=C, caption=Kod sa petljom, label=ex3, showlines=true]{snippets/ex3.cpp}
 
-Na kraju, dobijena stanja ograničavamo uslovom petlje koji zahteva se $x$ nalazi unutar $(-\infty, 10000)$ na početku petlje a unutar $[10000, +\infty)$ na njenom izlazu. Na tabeli \ref{tab:tabela1} prikazane su vrednosti dobijene u toku apstraktne interpretacije. \footnote{Primer je preuzet iz \cite{boulanger}}
+Na kraju, dobijena stanja ograničavamo uslovom petlje koji zahteva da se $x$ nalazi unutar $(-\infty, 10000)$ na početku petlje a unutar $[10000, +\infty)$ na njenom izlazu. U tabeli \ref{tab:tabela1} prikazane su vrednosti dobijene u toku apstraktne interpretacije. \footnote{Primer je preuzet iz \cite{boulanger}}
 
 
 \begin{table}[H]

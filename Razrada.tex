@@ -1,5 +1,4 @@
-
-Kao što se vidi u poglavlju \ref{Uvod} apstraktna interpretacija je tehnika za automatsku statičku analizu programa. Sastoji se od zamene preciznih elemenata programa sa manje detaljnim apstrakcijama. Apstrakcija dovodi do gubitka sigurnih informacija, informacija koje su eksplicitno date, usred samog procesa apstrahovanja što dovodi do nemogućnosti dovođenja zaključaka za sve programe. Apstraktna interpretacija omogućava da otkrijemo greške nastale tokom izvršavanja programa, kao što su deljenje sa 0, prekoračenje, itd, a takođe otkriva korišćenje zajedničkih promenljivih i mrtvih petlji \cite{AbramskyHankin}. 
+Kao što se vidi u poglavlju \ref{sec:uvod}, apstraktna interpretacija je tehnika za automatsku statičku analizu programa. Sastoji se od zamene preciznih elemenata programa sa manje detaljnim apstrakcijama. Apstrakcija dovodi do gubitka sigurnih informacija, informacija koje su eksplicitno date, usred samog procesa apstrahovanja što dovodi do nemogućnosti dovođenja zaključaka za sve programe. Apstraktna interpretacija omogućava da otkrijemo greške nastale tokom izvršavanja programa, kao što su deljenje sa 0, prekoračenje, itd, a takođe otkriva korišćenje zajedničkih promenljivih i mrtvih petlji \cite{AbramskyHankin}. 
 
 Glavna prednost alata koji koriste apstraktnu interpretaciju je da se test obavlja bez ikakve pripreme, baziran na kodu projekta. Ako se uporedi sa troškovima jediničnog testiranja, to predstavlja značajan argument \cite{AbramskyHankin}. 
 
@@ -61,13 +60,11 @@ Ako bi stavili znak (0, +, -), a da ne znamo vrednosti u nekim slu\-čajevima bi
 
 Iz ovoga sledi da je apstraktni račun tačan ukoliko je stvarna vrednost član skupa koji apstraktna vrednost predstavlja. Ako je ovo slučaj kaže se da je apstraktna interpretacija sigurna. Ako koristimo $a$ da predstavimo cele brojeve, dobijamo sigurnu verziju sabiranja dodavanjem pravila:
 
-\begin{multline}	
-	s + a = a + s = a + a = a \quad \text{gde je s} \in \{0, -, +\}
-\end{multline}
-\cite{AbramskyHankin}
+	
+$$	s + a = a + s = a + a = a \quad \text{gde je s} \in \{0, -, +\} $$ \cite{AbramskyHankin}
 
 \subsection{Korišćenje u računarstvu}
-\label{subsec:problem1}
+\label{subsec:koriscenje}
 Zbog čega je apstraktna interpretacija korisna u računarstvu? Mnogi tradicionalni optimizatori koji su zasnovani na toku upravljanja (engl. Control flow) i na analizi toka podataka (engl. Data-flow analysis) se uklapaju u okvir apstraktne interpretacije. Neke posebne analize koje su značajne u deklarativnim jezicima su:
 
 \begin{itemize}
@@ -108,9 +105,9 @@ Analiza moda nekad neće uspeti da detektuje logičke promenljive koje se isklju
 \end{itemize}
 
 \subsection{Aktuelna primena}
-Apstraktna interpretacija je široko primenjena u domenu analize i verifikacije koda gde postoji veliki broj aplikacija zasnovanih na njoj koja se već uveliko koriste u industriji\cite{Wilhelm-Wachter}. Među poznatijim alatima tog tipa mogu se navesti Parasoft C/C++test, Frama-C i Polyspace \footnote{Parasoft: \url{https://www.parasoft.com/product/cpptest/}, Frama-C: \url{http://frama-c.com/}, Polyspace: \url{https://www.mathworks.com/products/polyspace.html?s_cid=wiki_polyspace_2}}. 
+Apstraktna interpretacija je široko primenjena u domenu analize i verifikacije koda gde postoji veliki broj aplikacija zasnovanih na njoj koja se već uveliko koriste u industriji \cite{Wilhelm-Wachter}. Među poznatijim alatima tog tipa mogu se navesti Parasoft C/C++test, Frama-C i Polyspace \footnote{Parasoft: \url{https://www.parasoft.com/product/cpptest/}, Frama-C: \url{http://frama-c.com/}, Polyspace: \url{https://www.mathworks.com/products/polyspace.html?s_cid=wiki_polyspace_2}}. 
 
-U oblasti kompajlera, naprotiv, implementacija čiste apstraktne interpretacije znatno je ređa, uprkos ranom prepoznavanju potencijala za optimizaciju koda\cite{cousot}. 	Posebno zanimljiv primer je CIAO\footnote{\url{http://ciao-lang.org/}}, multiparadigmatski kompajler za jezike programiranja ograničenja namenjenih konkurentnom izvršavanju na više procesora. Njegov pretprocesor izvršava analize nad više različitih apstraktnih domena pomoću generičkog interpretatora koji radi 	s vrha naniže. \cite{ciao-report}. 
+U oblasti kompajlera, naprotiv, implementacija čiste apstraktne interpretacije znatno je ređa, uprkos ranom prepoznavanju potencijala za optimizaciju koda\cite{cousot}. 	Posebno zanimljiv primer je CIAO\footnote{\url{http://ciao-lang.org/}}, multiparadigmatski kompajler za jezike programiranja ograničenja namenjenih konkurentnom izvršavanju na više procesora. Njegov pretprocesor izvršava analize nad više različitih apstraktnih domena pomo\-ću generičkog interpretatora koji radi 	s vrha naniže \cite{ciao-report}. 
 
 Mnogi kompajleri poput GCC, Rosylyn, Clang i Stalin koriste analizu toka podataka ili neke njene aspekte za optimizaciju, ali treba imati na umu da iako se ova tehnika može posmatrati kao podvrsta apstraktne interpretacije, ona je znatno starija od nje i nije informisana teorijskim uvidima koje su otkrili bračni par Kuso i kasniji istraživači, te se oslanja na konkretne domene i ne koristi operatore proširenja.
 
