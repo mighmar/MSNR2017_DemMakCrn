@@ -50,7 +50,7 @@ Ali ostatak je problematičan:
 	a_{-} + a_{+} = ?? \\ 
 \end{multline}
 
-Ako bi stavili znak (0, +, -), a da ne znamo vrednosti u nekim slu\-čajevima bi pogrešili jer odgovor zavisi od vrednosti na koje se primenjuje. Kako za ?? možemo da okarakterišemo pravi? Da bi mogli to da uradimo moramo da znamo koji znak u apstraktnom izračunavanju predstavlja:
+Ako bi stavili znak (0, +, -), a da ne znamo vrednosti u nekim slu\-čajevima bi pogrešili jer odgovor zavisi od vrednosti na koje se primenjuje. Kako za ?? možemo da okarakterišemo pravi izbor? Da bi mogli to da uradimo moramo da znamo koji znak u apstraktnom izračunavanju predstavlja:
 
 \begin{multline}	\\
 	a_{0} = \{0\}				\\    
@@ -74,17 +74,13 @@ Analiza koja omogućava optimizaciju lenjih funkcionalnih programa identifikuju�
 \item \textit{Analiza menjanja u mestu} (engl. In-place update analysis \cite{CannPhd}):
 Ova analiza nam omogućava da odredimo tačke u programu na kojima je sigurno da se uništi objekat. Objekat se uništava kada nema ni jedan pokazivač koji pokazuje na njega. Rezultate u ovoj oblasti je doneo Hudak. Značajan rezultat je, po prvi put, funkcionalna verzija kviksort (engl. quicksort) algoritma koja može da se pokrene u linearnom prostoru \cite{Girard1987}. 
 
-%\item \textit{Analiza relevantnih klauza} (eng. Relevant clause analysis):
-%U mnogim prototipovima 5. generacije arhitekture\cite{japanFGCS} programi %mogu da naprave nelokalni pristup definicijama funkcija. Ovo povlači da %postoji komunikacija povezana sa izvršavanjem programa. Korišćenjem %analize delova postaje moguće identifikovati delove definicije funkcije %koji su relevantni za naš program i tako smanjiti troškove.  
-
-\item \textit{Analiza moda} (engl. Mode analysis) \cite{AbramskyHankin}:
+\item \textit{Analiza moda} (engl. Mode analysis \cite{AbramskyHankin}):
 Značajno povećanje performansi može se postići u Prologu ako se zna kako se logičke promenljive koriste u relaciji (kao ulazne, izlazne ili oba).
-%Kada je deklarativna zajednica postala svesna apstraktne interpretacije, nove aplikacije su otkrivene. 
 
 \end{itemize}
 
 
-Optimizacije zasnovane na apstraktnoj interpretaciji su tačne, ali se može dogoditi da neka od optimizacija iako je moguća ne bude izvršena. Razlog za eventualno neizvršenje možemo naći u tome što se pri samom procesu apstrahovanja mogu izgubiti podaci na osnovu kojih može da se zaključi da se sme izvršiti optimizacija. Ako ovo prebacimo u gornje primere to bi bilo:
+Optimizacije zasnovane na apstraktnoj interpretaciji su tačne, ali se može dogoditi da neka od optimizacija iako je moguća ne bude izvršena. Razlog za eventualno neizvršenje možemo naći u tome što se pri samom procesu apstrahovanja mogu izgubiti podaci koji nam govore da je bezbedno izvršiti optimizaciju. Ako ovo prebacimo u gornje primere to bi bilo:
 
 
 
@@ -96,11 +92,8 @@ Ako stroga analiza utvrdi da je funkcija stroga u argumentima onda to ona defini
 \item Analiza menjanja u mestu:
 Ako analiza menjanja u mestu ukaže da možemo destruktivno da ažuriramo podatke onda i možemo ali ćemo kopirati neke objekte koji su mogli biti uništeni \cite{Girard1987}. 
 
-%\item Analiza relevantnih klauza:
-%Analiza relevantnih klauza će nas terati da komuniciramo sa nadskupom koda %koji je u stvari samo potreban za neke posebne aplikacije.  
-
 \item Analiza moda:
-Analiza moda nekad neće uspeti da detektuje logičke promenljive koje se isključivo koriste kao ulazno-izlazne promenljive. 
+Ako analiza moda utvrdi da se logičke promenljive koriste isključivo kao ulazno-izlazne promenljive onda se one stvarno tako i koriste, ali nekad neće uspeti da detektuje sve logičke promenljive koje se tako koriste. 
 
 \end{itemize}
 
